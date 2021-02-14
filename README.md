@@ -1,2 +1,2 @@
 # Cansat-2021
-Software for the cansat 2021 electrical subsystem
+Software for CanSat team 3226 P.O.P.T.A.R.T.S.
