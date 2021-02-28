@@ -10,7 +10,6 @@ import cmd_terminal
 # TODO: make a custom class that inherits line edit perhaps? so that we can properly declare event handlers/signals
 # update: nvm current solution is kinda nice
 
-
 # GUI
 app = QApplication([])
 window = QWidget()

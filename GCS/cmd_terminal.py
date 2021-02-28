@@ -8,6 +8,7 @@ from  PyQt5.QtWidgets import QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout
 from PyQt5.QtCore import Qt
 import constants
 import commands
+import simulation
 
 # returns a layout that can be included in application window
 def build():
@@ -47,6 +48,11 @@ def build():
             input.clear()
 
     input.returnPressed.connect(send_command)
+
+    # temp code for testing simulation
+    # TODO: transfer this into commands.py
+    simulation.parse_sim_profile("profile.csv")
+
     return layout
 
 
