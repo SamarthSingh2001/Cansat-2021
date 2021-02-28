@@ -1,25 +1,32 @@
-from  PyQt5.QtWidgets import QApplication, QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout, QWidget
+"""
+@file   cmd_terminal.py
+@author Joshua Tenorio
+
+This file contains the Command Terminal widget.
+"""
+from  PyQt5.QtWidgets import QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout
 from PyQt5.QtCore import Qt
 import constants
 import commands
 
-def constructor():
+# returns a layout that can be included in application window
+def build():
     # prefix for commands to be sent to container
     cmd_prefix = "CMD," + str(constants.team_number)
 
-    command_label = QLabel("Command Terminal")
-    command_history = QPlainTextEdit()
-    command_history.setFocusPolicy(Qt.NoFocus)
-    command_input = QLineEdit()
+    label = QLabel("Command Terminal")
+    history = QPlainTextEdit()
+    history.setFocusPolicy(Qt.NoFocus)
+    input = QLineEdit()
 
-    command_layout = QVBoxLayout()
-    command_layout.addWidget(command_label)
-    command_layout.addWidget(command_history)
-    command_layout.addWidget(command_input)
+    layout = QVBoxLayout()
+    layout.addWidget(label)
+    layout.addWidget(history)
+    layout.addWidget(input)
 
     # temporary event handlers
     def send_command():
-        command = command_input.text()
+        command = input.text()
 
         # only do stuff if there is things in command input
         if command != "":
@@ -36,12 +43,10 @@ def constructor():
                 cmd_packet += "," + str(times[0]) + ":" + str(times[1]) + ":" + str(times[2])
 
             # append command to 
-            command_history.appendPlainText(cmd_packet)
-            command_input.clear()
+            history.appendPlainText(cmd_packet)
+            input.clear()
 
-
-    command_input.returnPressed.connect(send_command)
-
-    return command_layout
+    input.returnPressed.connect(send_command)
+    return layout
 
 

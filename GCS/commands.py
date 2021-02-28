@@ -1,3 +1,9 @@
+"""
+@file   commands.py
+@author Joshua Tenorio
+
+Command functionality is defined here.
+"""
 from datetime import datetime
 
 
