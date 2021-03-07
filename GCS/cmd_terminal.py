@@ -51,7 +51,7 @@ def build():
 
     # temp code for testing simulation
     # TODO: transfer this into commands.py
-    simulation.parse_sim_profile("profile.csv")
+    simulation.parse_sim_profile("simp_cmd_example.txt")
 
     return layout
 
