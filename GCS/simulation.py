@@ -14,13 +14,12 @@ def parse_sim_profile(file_name):
         data = []
         for line in file:
             if line[0].strip() != "#" or line.strip() == "":
-                print(line[0])
                 if line.strip() == "### End of file ###":
                     break
                 args = line.split(",")
-                data.append(args[0])
+                if len(args) > 1:
+                    data.append(args[3])
         
-        print(data[0])
         file.close()
         return data
 
