@@ -16,5 +16,5 @@ To leave virtual environment, run
 
 To run after first time...
 1. call venv/scripts/activate.bat (on Ubuntu, source /venv/bin/activate)
-2. python main.py
+2. python main.py (on Ubuntu, python3 main.py)
 3. to leave venv, deactivate
