@@ -47,6 +47,8 @@ def build():
             history.appendPlainText(cmd_packet)
             input.clear()
 
+            # TODO: send cmd_packet to container xbee radio
+
     input.returnPressed.connect(send_command)
 
     # temp code for testing simulation

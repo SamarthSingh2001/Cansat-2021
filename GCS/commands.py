@@ -6,6 +6,8 @@ Command functionality is defined here.
 """
 from datetime import datetime
 
+def parse_input(command):
+    pass
 
 def set_utc_time():
     now = datetime.now()

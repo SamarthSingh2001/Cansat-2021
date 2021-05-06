@@ -5,7 +5,7 @@
 Functionality and implementation of Simulation Mode
 """
 
-
+# TODO: add a way to specify the filename for simulation file
 def parse_sim_profile(file_name):
     # figure out file extension bc not sure if it will be in .txt or .csv
     f_extension = file_name.split(".")[1]
