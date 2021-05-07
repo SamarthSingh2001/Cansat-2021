@@ -41,11 +41,15 @@ def build():
             if cmd_args[0] == "ST":
                 times = commands.set_utc_time()
                 cmd_packet += "," + str(times[0]) + ":" + str(times[1]) + ":" + str(times[2])
-            elif cmd_args[0] == "SIM":
-                commands.sim_toggle(cmd_args)
-            
+            elif cmd_args[0] == "SIM": # TODO: maybe add another elif but for sim and release? so this is only sim and enable/activate/disable
+                commands.sim_command(cmd_args)
+            elif cmd_args[0] == "CX" or cmd_args[0] == "SP1X" or cmd_args[0] == "SP2X":
+                commands.transmission_toggle(cmd_args)
+            else:
+                print("CMD ERR: Command not recognized")
 
-            # append command to 
+            # append command to history
+            # TODO: add some sort of indicator that a command failed, maybe red font?
             history.appendPlainText(cmd_packet)
             input.clear()
 
