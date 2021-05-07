@@ -37,11 +37,13 @@ def build():
             for arg in cmd_args:
                 cmd_packet = cmd_packet + "," + arg
             # TODO: write code for sending cmd packet to container, need to test xbee first probably
-            # TODO: put in a if/else block here for acting on the command if necessary
 
             if cmd_args[0] == "ST":
                 times = commands.set_utc_time()
                 cmd_packet += "," + str(times[0]) + ":" + str(times[1]) + ":" + str(times[2])
+            elif cmd_args[0] == "SIM":
+                commands.sim_toggle(cmd_args)
+            
 
             # append command to 
             history.appendPlainText(cmd_packet)
