@@ -1,20 +1,40 @@
 # Cansat-2021
 Software for CanSat Team 3226 P.O.P.T.A.R.T.S.
 
-# Running Ground Control Station
-On first time setup...
+## Ground Control Software Build Instructions
 
-1. python3 -m venv venv
-2. call venv/scripts/activate.bat (on Ubuntu, instead run source /venv/bin/activate)
-3. pip install -r requirements.txt
-5. python main.py
+### Windows
+```bat
+:: Create virtual environment
+$ python -m venv venv
 
-To leave virtual environment, run
+:: Start virtual environment
+$ call venv/scripts/activate.bat
 
-1. deactivate
+:: Install required packages
+$ pip install -r requirements.txt
 
+:: Run the GCS
+$ python main.py
 
-To run after first time...
-1. call venv/scripts/activate.bat (on Ubuntu, source /venv/bin/activate)
-2. python main.py (on Ubuntu, python3 main.py)
-3. to leave venv, deactivate
+:: Leave the virtual environment
+$ deactivate
+```
+
+### Linux
+```bash
+# Create virtual environment
+$ python3 -m venv venv
+
+# Start virtual environment
+$ source /venv/bin/activate
+
+# Install requried packages
+$ pip install -r requirements.txt
+
+# Run the GCS
+$ python3 main.py
+
+# Leave the virtual environment
+$ deactivate
+```
