@@ -11,3 +11,6 @@ sim_activate_flag = False
 cx_flag = False
 sp1x_flag = False
 sp2x_flag = False
+
+# mqtt
+mqtt_flag = False

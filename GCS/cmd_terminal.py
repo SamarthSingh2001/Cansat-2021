@@ -45,6 +45,8 @@ def build():
                 commands.sim_command(cmd_args)
             elif cmd_args[0] == "CX" or cmd_args[0] == "SP1X" or cmd_args[0] == "SP2X":
                 commands.transmission_toggle(cmd_args)
+            elif cmd_args[0] == "MQTT":
+                commands.mqtt_toggle(cmd_args)
             else:
                 print("CMD ERR: Command not recognized")
 
