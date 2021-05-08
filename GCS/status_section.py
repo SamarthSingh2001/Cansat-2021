@@ -1,5 +1,5 @@
 """
-@file   textUpdates.py
+@file   status_section.py
 @author Emil Roy
 
 This file contains the Status Section widget.
