@@ -10,26 +10,20 @@ import constants
 import commands
 import simulation
 
+simulationLabel = QLabel("Simulation Mode Status: False")
+simulationLabel.setStyleSheet("color: red")
+
+mqttTransmitLabel = QLabel("MQTT Transmission Status: False")
+mqttTransmitLabel.setStyleSheet("color: red")
+
+payload1Label = QLabel("Payload 1 Is NOT Deployed")
+payload1Label.setStyleSheet("color: red")
+
+payload2Label = QLabel("Payload 2 Is NOT Deployed")
+payload2Label.setStyleSheet("color: red")
+
 # returns a layout that can be included in application window
 def build():
-
-    #create widget to show simulation status
-    simulationOn = False
-    simulationLabel = QLabel("Simulation Mode Status: False")
-    simulationLabel.setStyleSheet("color: red")
-
-    #create widget to show MQTT Transmission status
-    mqttOn = False
-    mqttTransmitLabel = QLabel("MQTT Transmission Status: False")
-    mqttTransmitLabel.setStyleSheet("color: red")
-
-    #create widget to show if first payload is deployed
-    payload1Label = QLabel("Payload 1 Is NOT Deployed")
-    payload1Label.setStyleSheet("color: red")
-
-    #create widget to show if second payload is deployed
-    payload2Label = QLabel("Payload 2 Is NOT Deployed")
-    payload2Label.setStyleSheet("color: red")
 
     # can add future labels here such as altitude, temperature, etc if wanted
 
