@@ -13,7 +13,7 @@ import status_section
 import simulation as sim
 
 # uncomment this if running examples
-pyqtgraph.examples.run()
+#pyqtgraph.examples.run()
 
 
 # GUI
