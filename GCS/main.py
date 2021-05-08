@@ -27,7 +27,6 @@ window.resize(900, 600)
 command_terminal: QVBoxLayout = cmd_terminal.build()
 status_section: QVBoxLayout = status_section.build()
 
-
 # WIP data plotting widget
 graphs = pg.GraphicsLayoutWidget()
 
