@@ -10,6 +10,12 @@ import constants
 import commands
 import simulation
 
+# needs to be file-global so it can be edited
+error_label = QLabel("")
+error_label.setStyleSheet("color: red")
+
+valid_cmd_flag = True
+
 # returns a layout that can be included in application window
 def build():
     # prefix for commands to be sent to container
@@ -22,10 +28,11 @@ def build():
 
     layout = QVBoxLayout()
     layout.addWidget(label)
+    layout.addWidget(error_label)
     layout.addWidget(history)
     layout.addWidget(input)
 
-    # temporary event handlers
+    # event handler
     def send_command():
         command = input.text()
 
@@ -36,19 +43,23 @@ def build():
             cmd_args = command.upper().split()
             for arg in cmd_args:
                 cmd_packet = cmd_packet + "," + arg
-            # TODO: write code for sending cmd packet to container, need to test xbee first probably
-
+            
+            valid_cmd_flag = True
+            error_msg = ""
             if cmd_args[0] == "ST":
                 times = commands.set_utc_time()
                 cmd_packet += "," + str(times[0]) + ":" + str(times[1]) + ":" + str(times[2])
             elif cmd_args[0] == "SIM": # TODO: maybe add another elif but for sim and release? so this is only sim and enable/activate/disable
-                commands.sim_command(cmd_args)
+                valid_cmd_flag, error_msg = commands.sim_command(cmd_args)
             elif cmd_args[0] == "CX" or cmd_args[0] == "SP1X" or cmd_args[0] == "SP2X":
-                commands.transmission_toggle(cmd_args)
+                valid_cmd_flag, error_msg = commands.transmission_toggle(cmd_args)
             elif cmd_args[0] == "MQTT":
-                commands.mqtt_toggle(cmd_args)
+               valid_cmd_flag, error_msg =  commands.mqtt_toggle(cmd_args)
             else:
-                print("CMD ERR: Command not recognized")
+                error_msg = "CMD ERR: Command not recognized"
+                print(error_msg)
+                
+                valid_cmd_flag = False
 
             # append command to history
             # TODO: add some sort of indicator that a command failed, maybe red font?
@@ -56,6 +67,11 @@ def build():
             input.clear()
 
             # TODO: send cmd_packet to container xbee radio
+            if valid_cmd_flag:
+                error_label.setText("")
+                # send command if valid
+            else:
+                error_label.setText(error_msg)
 
     input.returnPressed.connect(send_command)
 

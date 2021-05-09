@@ -37,33 +37,29 @@ def build():
     return layout
 
 #function to update simulation status
-def simulationStatus(status):
-    if (status == False):
-        simulationLabel = QLabel("Simulation Mode Status: False")
-        simulationLabel.setStyleSheet("color: red")
-    else:
-        simulationLabel = QLabel("Simulation Mode Status: True")
+def simulationStatus(enable, activate):
+    if (enable == True and activate == True):
+        simulationLabel.setText("Simulation Mode Status: True")
         simulationLabel.setStyleSheet("color: green")
-    pass
+    else:
+        simulationLabel.setText("Simulation Mode Status: False")
+        simulationLabel.setStyleSheet("color: red")
 
 #function to update MQTT transmission status
 def mqttStatus(status):
     if (status == False):
-        mqttTransmitLabel = QLabel("MQTT Transmission Status: False")
+        mqttTransmitLabel.setText("MQTT Transmission Status: False")
         mqttTransmitLabel.setStyleSheet("color: red")
     else:
-        mqttTransmitLabel = QLabel("MQTT Transmission Status: True")
+        mqttTransmitLabel.setText("MQTT Transmission Status: True")
         mqttTransmitLabel.setStyleSheet("color: green")
-    pass
 
 #function to update if first payload is deployed or not
 def payload1Deployed():
     payload1Label.setText("Payload 1 Is SUCCESSFULLY Deployed")
     payload1Label.setStyleSheet("color: green")
-    pass
 
 #function to update if second payload is deployed or not
 def payload2Deployed():
     payload2Label.setText("Payload 2 Is SUCCESSFULLY Deployed")
     payload2Label.setStyleSheet("color: green")
-    pass

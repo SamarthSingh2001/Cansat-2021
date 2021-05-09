@@ -56,7 +56,7 @@ def build():
 
     return layout
 
-# TODO: add an update function and a loop for plots so they update every second
+
+# TODO: implement update function
 def update():
-    update_graphs()
     pass
