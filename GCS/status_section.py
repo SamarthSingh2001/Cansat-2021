@@ -10,6 +10,9 @@ import constants
 import commands
 import simulation
 
+time = 1
+missionTimeLabel = QLabel("Mission Time: "+str(time)+"s") #TODO how do i add time?
+
 simulationLabel = QLabel("Simulation Mode Status: False")
 simulationLabel.setStyleSheet("color: red")
 
@@ -29,10 +32,9 @@ def build():
 
     #adding all the widgets to the layout
     layout = QVBoxLayout()
+    layout.addWidget(missionTimeLabel)
     layout.addWidget(simulationLabel)
     layout.addWidget(mqttTransmitLabel)
-    layout.addWidget(payload1Label)
-    layout.addWidget(payload2Label)
 
     return layout
 
@@ -53,13 +55,3 @@ def mqttStatus(status):
     else:
         mqttTransmitLabel.setText("MQTT Transmission Status: True")
         mqttTransmitLabel.setStyleSheet("color: green")
-
-#function to update if first payload is deployed or not
-def payload1Deployed():
-    payload1Label.setText("Payload 1 Is SUCCESSFULLY Deployed")
-    payload1Label.setStyleSheet("color: green")
-
-#function to update if second payload is deployed or not
-def payload2Deployed():
-    payload2Label.setText("Payload 2 Is SUCCESSFULLY Deployed")
-    payload2Label.setStyleSheet("color: green")
