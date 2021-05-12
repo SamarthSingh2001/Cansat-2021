@@ -23,19 +23,17 @@ import states
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("Team 3226 P.O.P.T.A.R.T.S. Ground Station")
-window.resize(1200, 900)
+window.resize(2000, 1100)
 
 
 # widgets
 command_terminal: QVBoxLayout = cmd_terminal.build()
 status_widget: QVBoxLayout = status_section.build()
 graphs_widget: QGridLayout = graphs.build()
-states_widget: QVBoxLayout = states.build()
 
 # show gui
 layout = QHBoxLayout()
 layout.addLayout(command_terminal,1)  # graph widget is wider than cmd terminal, which is wider than status widget
-layout.addLayout(states_widget, 2)
 layout.addLayout(graphs_widget,4)
 layout.addLayout(status_widget,0)
 window.setLayout(layout)
