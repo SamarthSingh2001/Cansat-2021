@@ -14,7 +14,7 @@ import states
 import simulation as sim
 import numpy as np
 
-# WIP data plotting widget
+# data plotting widget
 containerPressureGraph = pg.GraphicsLayoutWidget()
 
 # get values from example simp values
@@ -38,12 +38,6 @@ data = np.array(simp_values).astype(float)
 
 containerAltitudeGraph.addPlot(y = data, title = "Container Altitude Data")
 
-#graph to check the containers voltage level
-containerVoltageGraph = pg.GraphicsLayoutWidget()
-simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
-data = np.array(simp_values).astype(float)
-
-containerVoltageGraph.addPlot(y = data, title = "Container Voltage Data")
 
 #PAYLOAD STUFF BELOW------------------------------------------------------------
 
@@ -67,19 +61,14 @@ data = np.array(simp_values).astype(float)
 
 payloadAltitudeGraph.addPlot(y = data, title = "Payloads Altitude Data")
 
-#graph to check the payload altitude
+#graph to check the payload speed
 payloadSpeedGraph = pg.GraphicsLayoutWidget()
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 data = np.array(simp_values).astype(float)
 
 payloadSpeedGraph.addPlot(y = data, title = "Payloads Speed Data")
 
-#graph to check the payload altitude
-payloadVoltageGraph = pg.GraphicsLayoutWidget()
-simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
-data = np.array(simp_values).astype(float)
 
-payloadVoltageGraph.addPlot(y = data, title = "Payloads Voltage Data")
 
 #TODO might want to have different graphs for each plot
 #also confused how voltage plot should be like, should it be
@@ -94,14 +83,12 @@ def build():
     layout.addWidget(payloadPressureGraph, 0, 2)
     layout.addWidget(payloadAltitudeGraph, 1, 1)
     layout.addWidget(payloadSpeedGraph, 1, 2)
-    layout.addWidget(payloadVoltageGraph, 0, 3)
 
     #TODO add way to seperate payload and container stuff better
     layout.addLayout(conWidget, 4, 0)
     layout.addWidget(containerTempGraph, 4, 1)
     layout.addWidget(containerPressureGraph, 4, 2)
     layout.addWidget(containerAltitudeGraph, 5, 1)
-    layout.addWidget(containerVoltageGraph, 5, 2)
 
 
     return layout

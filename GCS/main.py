@@ -1,6 +1,6 @@
 """
 @file   main.py
-@author Joshua Tenorio
+@author Joshua Tenorio, Emil Roy
 
 Main program for the Ground Station software.
 """

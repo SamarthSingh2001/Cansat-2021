@@ -2,27 +2,42 @@
 @file   states.py
 @author Emil Roy
 
-This file contains the Status Section widget.
+This file contains the States Section widget. It contains various statuses relating to the container and the payloads.
 """
 from  PyQt5.QtWidgets import QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout
 from PyQt5.QtCore import Qt
 import constants
 import commands
-import simulation
 
 
 #create payload states/statuses
-payloadLabel = QLabel("Payload")
-payloadLabel.setStyleSheet("color: blue;"
+payload1Label = QLabel("Payload 1")
+payload1Label.setStyleSheet("color: blue;"
                          "border-style: solid;"
                          "background-color: #87CEFA;"
                          "border-width: 2px;"
                          "border-color: #1E90FF;"
                          "border-radius: 3px")
-payValidPackets = 2 #example values
-payInvalidPackets = 0
-payValidPacketLabel = QLabel("Valid Packets: " + str(payValidPackets))#TODO how do we add packets?
-payInvalidPacketLabel = QLabel("Invalid Packets: " + str(payInvalidPackets))
+pay1ValidPackets = 2 #example values
+pay1InvalidPackets = 0
+pay1ValidPacketLabel = QLabel("Valid Packets: " + str(pay1ValidPackets))#TODO how do we add packets?
+pay1InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay1InvalidPackets))
+pay1Voltage = 4 #placeholder
+pay1VoltageLabel = QLabel("Voltage: " + str(pay1Voltage))
+
+payload2Label = QLabel("Payload 2")
+payload2Label.setStyleSheet("color: blue;"
+                         "border-style: solid;"
+                         "background-color: #87CEFA;"
+                         "border-width: 2px;"
+                         "border-color: #1E90FF;"
+                         "border-radius: 3px")
+pay2ValidPackets = 2 #example values
+pay2InvalidPackets = 0
+pay2ValidPacketLabel = QLabel("Valid Packets: " + str(pay2ValidPackets))#TODO how do we add packets?
+pay2InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay2InvalidPackets))
+pay2Voltage = 4 #placeholder
+pay2VoltageLabel = QLabel("Voltage: " + str(pay2Voltage))
 
 payload1State = QLabel("Payload 1 State: Launchpad and Not Deployed")
 payload1State.setStyleSheet("color: red")
@@ -43,6 +58,9 @@ conInvalidPackets = 2
 conValidPacketLabel = QLabel("Valid Packets: " + str(conValidPackets))#TODO how do we add packets?
 conInvalidPacketLabel = QLabel("Invalid Packets: " + str(conInvalidPackets))
 
+conVoltage = 4 #placeholder
+conVoltageLabel = QLabel("Voltage: " + str(conVoltage))
+
 containerState = QLabel("State: Launchpad")
 containerState.setStyleSheet("color: red")
 
@@ -50,11 +68,19 @@ containerState.setStyleSheet("color: red")
 def buildPayLayout():
     #adding all the widgets to the layout
     layout = QVBoxLayout()
-    layout.addWidget(payloadLabel)
-    layout.addWidget(payValidPacketLabel)
-    layout.addWidget(payInvalidPacketLabel)
+    # payload 1
+    layout.addWidget(payload1Label)
+    layout.addWidget(pay1ValidPacketLabel)
+    layout.addWidget(pay1InvalidPacketLabel)
     layout.addWidget(payload1State)
+    layout.addWidget(pay1VoltageLabel)
+
+    # payload 2
+    layout.addWidget(payload2Label)
+    layout.addWidget(pay2ValidPacketLabel)
+    layout.addWidget(pay2InvalidPacketLabel)
     layout.addWidget(payload2State)
+    layout.addWidget(pay2VoltageLabel)
     return layout
 
 # return container info as layout
@@ -64,6 +90,7 @@ def buildContainerLayout():
     layout.addWidget(conValidPacketLabel)
     layout.addWidget(conInvalidPacketLabel)
     layout.addWidget(containerState)
+    layout.addWidget(conVoltageLabel)
     return layout
 
 #function to update first payload states
@@ -88,10 +115,10 @@ def updateContainerState(state):
         payload2State.setText("Payload 2 State: Ascending and NOT Deployed")
         payload2State.setStyleSheet("color: yellow")
 
-    else if(state == "descending"):
+    elif(state == "descending"):
         containerState.setText("State: Descending")
         containerState.setStyleSheet("color: yellow")
-    else if(state == "landed"):
+    elif(state == "landed"):
         containerState.setText("State: Landed")
         containerState.setStyleSheet("color: purple")
     #TODO what if input wrong cmd?
