@@ -58,11 +58,14 @@ def update():
     if constants.sp2_deployed_flag:
         status_section.payload2Deployed()
 
+    # temporary spot but it probably makes sense here
+    if(constants.sim_activate_flag and constants.sim_enable_flag):
+        sim.transmit_packet()
+
 
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start(1000)
 
-# TODO: do we need another timer for sending simulation stuff to container? only needed if our GUI update is < 1000 ms
 
 app.exec()

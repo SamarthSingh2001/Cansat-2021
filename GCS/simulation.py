@@ -4,7 +4,7 @@
 
 Functionality and implementation of Simulation Mode
 """
-
+import xbee
 # TODO: add a way to specify the filename for simulation file
 
 
@@ -31,13 +31,29 @@ def parse_sim_profile(file_name):
         print("Profile is not a .txt or .csv file")
         return 0
 
-# returns the nth packet in the sim profile to transmit to container
-def get_next_packet(n):
+err_out_of_bounds = "SIM ERR: attempted to retrieve a packet out of profile's bounds"
+# returns the nth val in the sim profile to transmit to container
+def get_nth_value(n):
     sim_profile = parse_sim_profile("simp_cmd_example.txt")
-    if n < 0 or n > sim_profile.__len__:
-        err_msg = "SIM ERR: attempted to retrieve a packet out of profile's bounds"
-        print(err_msg)
-        return err_msg
+    if n < 0 or n >= len(sim_profile):
+        print(err_out_of_bounds)
+        return err_out_of_bounds
     
     # if n is a valid packet num, return the packet
     return sim_profile[n]
+
+
+def transmit_packet():
+    data = get_nth_value(transmit_packet.itr)
+    if (data != err_out_of_bounds):
+        packet = "CMD,3226,SIMP," + str(data)
+        print(packet)
+        transmit_packet.itr += 1
+        # TODO: transmit this packet string using the xbee to the container
+        xbee.send_packet(packet)
+        return True
+    else:
+        transmit_packet.itr += 1
+        return False
+    
+transmit_packet.itr = 0

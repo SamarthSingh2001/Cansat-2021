@@ -25,6 +25,7 @@ pay1InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay1InvalidPackets))
 pay1Voltage = 4 #placeholder
 pay1VoltageLabel = QLabel("Voltage: " + str(pay1Voltage))
 
+
 payload2Label = QLabel("Payload 2")
 payload2Label.setStyleSheet("color: blue;"
                          "border-style: solid;"
