@@ -28,9 +28,9 @@ def build():
 
     layout = QVBoxLayout()
     layout.addWidget(label)
-    layout.addWidget(error_label)
     layout.addWidget(history)
     layout.addWidget(input)
+    layout.addWidget(error_label)
 
     # event handler
     def send_command():

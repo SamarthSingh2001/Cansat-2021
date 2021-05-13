@@ -14,6 +14,7 @@ import graphs
 import simulation as sim
 import constants
 import states
+import packet_history
 
 # uncomment this if running examples
 #pyqtgraph.examples.run()
@@ -30,10 +31,16 @@ window.resize(2000, 1100)
 command_terminal: QVBoxLayout = cmd_terminal.build()
 status_widget: QVBoxLayout = status_section.build()
 graphs_widget: QGridLayout = graphs.build()
+pkt_history: QVBoxLayout = packet_history.build()
+
+# stack the packet history on top of command terminal
+comm_stack = QVBoxLayout()
+comm_stack.addLayout(pkt_history)
+comm_stack.addLayout(command_terminal)
 
 # show gui
 layout = QHBoxLayout()
-layout.addLayout(command_terminal,1)  # graph widget is wider than cmd terminal, which is wider than status widget
+layout.addLayout(comm_stack,1)  # graph widget is wider than cmd terminal, which is wider than status widget
 layout.addLayout(graphs_widget,4)
 layout.addLayout(status_widget,0)
 window.setLayout(layout)
