@@ -39,35 +39,61 @@ data = np.array(simp_values).astype(float)
 containerAltitudeGraph.addPlot(y = data, title = "Container Altitude Data")
 
 
-#PAYLOAD STUFF BELOW------------------------------------------------------------
+#PAYLOAD 1 STUFF BELOW------------------------------------------------------------
 
 #graph to check payloads pressure data
-payloadPressureGraph = pg.GraphicsLayoutWidget()
+payload1PressureGraph = pg.GraphicsLayoutWidget()
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 data = np.array(simp_values).astype(float)
 
-payloadPressureGraph.addPlot(y = data, title = "Payloads Pressure Data")
+payload1PressureGraph.addPlot(y = data, title = "Payload 1 Pressure Data")
 #graph to check the payload temperatures
-payloadTempGraph = pg.GraphicsLayoutWidget()
+payload1TempGraph = pg.GraphicsLayoutWidget()
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 data = np.array(simp_values).astype(float)
 
-payloadTempGraph.addPlot(y = data, title = "Payloads Temperature Data")
+payload1TempGraph.addPlot(y = data, title = "Payload 1 Temperature Data")
 
 #graph to check the payload altitude
-payloadAltitudeGraph = pg.GraphicsLayoutWidget()
+payload1AltitudeGraph = pg.GraphicsLayoutWidget()
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 data = np.array(simp_values).astype(float)
 
-payloadAltitudeGraph.addPlot(y = data, title = "Payloads Altitude Data")
+payload1AltitudeGraph.addPlot(y = data, title = "Payload 1 Altitude Data")
 
 #graph to check the payload speed
-payloadSpeedGraph = pg.GraphicsLayoutWidget()
+payload1SpeedGraph = pg.GraphicsLayoutWidget()
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 data = np.array(simp_values).astype(float)
 
-payloadSpeedGraph.addPlot(y = data, title = "Payloads Speed Data")
+payload1SpeedGraph.addPlot(y = data, title = "Payload 1 Speed Data")
 
+#PAYLOAD 2 Stuff Below-----------------------------------------------------
+payload2PressureGraph = pg.GraphicsLayoutWidget()
+simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
+data = np.array(simp_values).astype(float)
+
+payload2PressureGraph.addPlot(y = data, title = "Payload 2 Pressure Data")
+#graph to check the payload temperatures
+payload2TempGraph = pg.GraphicsLayoutWidget()
+simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
+data = np.array(simp_values).astype(float)
+
+payload2TempGraph.addPlot(y = data, title = "Payload 2 Temperature Data")
+
+#graph to check the payload altitude
+payload2AltitudeGraph = pg.GraphicsLayoutWidget()
+simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
+data = np.array(simp_values).astype(float)
+
+payload2AltitudeGraph.addPlot(y = data, title = "Payload 2 Altitude Data")
+
+#graph to check the payload speed
+payload2SpeedGraph = pg.GraphicsLayoutWidget()
+simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
+data = np.array(simp_values).astype(float)
+
+payload2SpeedGraph.addPlot(y = data, title = "Payload 2 Speed Data")
 
 
 #TODO might want to have different graphs for each plot
@@ -79,11 +105,18 @@ def build():
     payWidget: QVBoxLayout = states.buildPayLayout()
     conWidget: QVBoxLayout = states.buildContainerLayout()
     layout.addLayout(payWidget, 0, 0)
-    layout.addWidget(payloadTempGraph, 0, 1)
-    layout.addWidget(payloadPressureGraph, 0, 2)
-    layout.addWidget(payloadAltitudeGraph, 1, 1)
-    layout.addWidget(payloadSpeedGraph, 1, 2)
+    layout.addWidget(payload1TempGraph, 0, 1)
+    layout.addWidget(payload1PressureGraph, 0, 2)
+    layout.addWidget(payload1AltitudeGraph, 0, 3)
+    layout.addWidget(payload1SpeedGraph, 0, 4)
+    #Adding payload 2 graphs now
+    layout.addWidget(payload2TempGraph, 1, 1)
+    layout.addWidget(payload2PressureGraph, 1, 2)
+    layout.addWidget(payload2AltitudeGraph, 1, 3)
+    layout.addWidget(payload2SpeedGraph, 1, 4)
 
+
+    layout.setRowMinimumHeight(2, 50)#adds spacing between payloads and container
     #TODO add way to seperate payload and container stuff better
     layout.addLayout(conWidget, 4, 0)
     layout.addWidget(containerTempGraph, 4, 1)

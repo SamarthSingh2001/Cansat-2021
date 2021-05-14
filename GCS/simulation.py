@@ -21,7 +21,7 @@ def parse_sim_profile(file_name):
                 args = line.split(",")
                 if len(args) > 1:
                     data.append(args[3])
-        
+
         file.close()
         return data
 
@@ -38,7 +38,7 @@ def get_nth_value(n):
     if n < 0 or n >= len(sim_profile):
         print(err_out_of_bounds)
         return err_out_of_bounds
-    
+
     # if n is a valid packet num, return the packet
     return sim_profile[n]
 
@@ -55,5 +55,5 @@ def transmit_packet():
     else:
         transmit_packet.itr += 1
         return False
-    
+
 transmit_packet.itr = 0
