@@ -15,3 +15,6 @@ with open('Flight_3226_SP1.csv', 'w', newline='') as f:
 with open('Flight_3226_SP2.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(['testing', 'hello', 'this thing working?'])
+
+def append_csv_file(line):
+    pass
