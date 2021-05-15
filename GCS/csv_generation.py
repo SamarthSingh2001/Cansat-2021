@@ -2,19 +2,28 @@ import csv
 
 #write to container csv file
 with open('Flight_3226_C.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(['testing', 'hello', 'this thing working?'])
+    writerC = csv.writer(f)
+    #create the csv headers
+    writerC.writerow(['TEAM_ID','MISSION_TIME','PACKET_COUNT','PACKET_TYPE','MODE',
+                    'SP1_RELEASED','SP2_RELEASED','ALTITUDE','TEMP',
+                    'VOLTAGE','GPS_TIME','GPS_LATITUDE','GPS_LONGITUDE',
+                    'GPS_ALTITUDE','GPS_SATS','SOFTWARE_STATE',
+                    'SP1_PACKET_COUNT','SP2_PACKET_COUNT','CMD_ECHO'])
 
-#TODO, why aren't the other two .csv files being created????
 #write to payload 1 csv file
 with open('Flight_3226_SP1.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(['testing', 'hello', 'this thing working?'])
+    writerSP1 = csv.writer(f)
+    #create the csv headers
+    writerSP1.writerow(['TEAM_ID','MISSION_TIME','PACKET_COUNT','PACKET_TYPE',
+                        'SP_ALTITUDE','SP_TEMP','SP_ROTATION_RATE'])
 
 #write to payload 2 csv file
 with open('Flight_3226_SP2.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(['testing', 'hello', 'this thing working?'])
+    writerSP2 = csv.writer(f)
+    #create the csv headers
+    writerSP2.writerow(['TEAM_ID','MISSION_TIME','PACKET_COUNT','PACKET_TYPE',
+                        'SP_ALTITUDE','SP_TEMP','SP_ROTATION_RATE'])
 
+#to add data to the csv files
 def append_csv_file(line):
     pass
