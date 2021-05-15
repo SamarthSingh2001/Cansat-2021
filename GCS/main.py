@@ -15,6 +15,7 @@ import simulation as sim
 import constants
 import states
 import packet_history
+import csv_generation
 
 # uncomment this if running examples
 #pyqtgraph.examples.run()
@@ -66,6 +67,5 @@ def update():
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start(1000)
-
 
 app.exec()
