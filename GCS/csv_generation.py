@@ -46,5 +46,5 @@ def append_csv_file(line):
     if type == 'S2':
         with open('reports/Flight_3226_SP2.csv', 'a') as ad:
             ad.write(line)
-    else:
+    else: #should there be some errors?
         pass

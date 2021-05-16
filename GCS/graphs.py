@@ -166,3 +166,4 @@ def update_data(packet):
         p2RPMdata[-1] = packet_args[6]
     else:
         print("GRAPH ERR: invalid packet")
+
