@@ -11,7 +11,7 @@ def setup() :
     client.connect("mqtt://t1000:t1000pass@cansat.info");
 
 
-void draw() {}
+void draw()
 
 def keyPressed():
     client.publish("teams/3226", "world");

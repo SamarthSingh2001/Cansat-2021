@@ -130,3 +130,6 @@ def build():
 # TODO: implement update function
 def update():
     pass
+
+def update_data(packet):
+    pass
