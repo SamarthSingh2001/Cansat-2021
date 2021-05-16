@@ -40,11 +40,11 @@ def append_csv_file(line):
     if type == 'C':
         with open('Flight_3226_C.csv', 'a') as ad:
             ad.write(line)
-    if type == 'S1':
+    elif type == 'S1':
         with open('Flight_3226_SP1.csv', 'a') as ad:
             ad.write(line)
-    if type == 'S2':
+    elif type == 'S2':
         with open('Flight_3226_SP2.csv', 'a') as ad:
             ad.write(line)
-    else:
+    else: #should there be some errors?
         pass
