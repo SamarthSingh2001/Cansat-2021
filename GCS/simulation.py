@@ -4,7 +4,7 @@
 
 Functionality and implementation of Simulation Mode
 """
-import xbee
+
 # TODO: add a way to specify the filename for simulation file
 
 
@@ -50,7 +50,7 @@ def transmit_packet():
         print(packet)
         transmit_packet.itr += 1
         # TODO: transmit this packet string using the xbee to the container
-        xbee.send_packet(packet)
+        #xbee.send_packet(packet)
         return True
     else:
         transmit_packet.itr += 1

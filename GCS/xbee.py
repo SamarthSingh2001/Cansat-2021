@@ -7,6 +7,7 @@ Implementation for transmitting and receiving packets to and from the Container
 from digi.xbee.devices import XBeeDevice
 import csv_generation as csv_gen
 import mqtt_util as mqtt
+import graphs
 
 # placeholder xbee object
 # note: VERY subject to change
@@ -26,6 +27,6 @@ def send_packet(packet):
 def on_packet_received(xbee_message):
     csv_gen.append_csv_file(xbee_message)
     mqtt.send_packet(xbee_message)
-
+    graphs.update_data(xbee_message)
     # TODO: parse xbee_message into a List
     #       send relevant items to relevant widgets
