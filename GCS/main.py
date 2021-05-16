@@ -16,9 +16,10 @@ import constants
 import states
 import packet_history
 import csv_generation
+import xbee
 
 # uncomment this if running examples
-#pyqtgraph.examples.run()
+pyqtgraph.examples.run()
 
 
 # GUI
@@ -63,7 +64,9 @@ def update():
 
     # temporary spot but it probably makes sense here
     if(constants.sim_activate_flag and constants.sim_enable_flag):
-        sim.transmit_packet()
+        sim_packet = sim.transmit_packet()
+        if sim_packet != "null":
+            xbee.send_packet(sim_packet)
 
 csv_generation.build()#to create the csv files
 

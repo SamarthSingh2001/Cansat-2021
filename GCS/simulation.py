@@ -51,9 +51,9 @@ def transmit_packet():
         transmit_packet.itr += 1
         # TODO: transmit this packet string using the xbee to the container
         #xbee.send_packet(packet)
-        return True
+        return packet
     else:
         transmit_packet.itr += 1
-        return False
+        return "null"
 
 transmit_packet.itr = 0

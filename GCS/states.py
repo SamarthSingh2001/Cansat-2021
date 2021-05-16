@@ -22,8 +22,6 @@ pay1ValidPackets = 2 #example values
 pay1InvalidPackets = 0
 pay1ValidPacketLabel = QLabel("Valid Packets: " + str(pay1ValidPackets))#TODO how do we add packets?
 pay1InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay1InvalidPackets))
-pay1Voltage = 4 #placeholder
-pay1VoltageLabel = QLabel("Voltage: " + str(pay1Voltage))
 
 
 payload2Label = QLabel("Payload 2")
@@ -37,8 +35,6 @@ pay2ValidPackets = 2 #example values
 pay2InvalidPackets = 0
 pay2ValidPacketLabel = QLabel("Valid Packets: " + str(pay2ValidPackets))#TODO how do we add packets?
 pay2InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay2InvalidPackets))
-pay2Voltage = 4 #placeholder
-pay2VoltageLabel = QLabel("Voltage: " + str(pay2Voltage))
 
 payload1State = QLabel("Payload 1 State: Launchpad and Not Deployed")
 payload1State.setStyleSheet("color: red")
@@ -74,14 +70,13 @@ def buildPayLayout():
     layout.addWidget(pay1ValidPacketLabel)
     layout.addWidget(pay1InvalidPacketLabel)
     layout.addWidget(payload1State)
-    layout.addWidget(pay1VoltageLabel)
+
 
     # payload 2
     layout.addWidget(payload2Label)
     layout.addWidget(pay2ValidPacketLabel)
     layout.addWidget(pay2InvalidPacketLabel)
     layout.addWidget(payload2State)
-    layout.addWidget(pay2VoltageLabel)
     return layout
 
 # return container info as layout
