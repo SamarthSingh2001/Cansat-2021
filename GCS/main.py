@@ -44,7 +44,9 @@ layout = QHBoxLayout()
 layout.addLayout(comm_stack,1)  # graph widget is wider than cmd terminal, which is wider than status widget
 layout.addLayout(graphs_widget,4)
 layout.addLayout(status_widget,0)
+
 window.setLayout(layout)
+#window.setStyleSheet('background-color: #2C2726')
 window.show()
 
 # update function
@@ -63,6 +65,7 @@ def update():
     if(constants.sim_activate_flag and constants.sim_enable_flag):
         sim.transmit_packet()
 
+csv_generation.build()#to create the csv files
 
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
