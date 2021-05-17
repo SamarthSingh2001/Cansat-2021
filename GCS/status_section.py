@@ -7,11 +7,9 @@ This file contains the Status Section widget.
 from  PyQt5.QtWidgets import QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout
 from PyQt5.QtCore import Qt
 import constants
-import commands
-import simulation
 
-time = 1
-missionTimeLabel = QLabel("Mission Time: "+str(time)+"s") #TODO how do i add time?
+time = "time not set!"
+missionTimeLabel = QLabel("Mission Time (UTC): " + time)
 
 simulationLabel = QLabel("Simulation Mode Status: False")
 simulationLabel.setStyleSheet("color: red")
@@ -55,3 +53,12 @@ def mqttStatus(status):
     else:
         mqttTransmitLabel.setText("MQTT Transmission Status: True")
         mqttTransmitLabel.setStyleSheet("color: green")
+
+def updateMissionTime(packet):
+    global time
+    packet_args = packet.split(",")
+    time = packet_args[1]
+
+def update():
+    missionTimeLabel.setText("Mission Time (UTC): " + time)
+    

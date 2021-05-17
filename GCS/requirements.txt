@@ -4,3 +4,4 @@ PyQt5-sip==12.8.1
 pyqtgraph==0.11.1
 pyserial==3.5
 digi-xbee==1.4.0
+paho-mqtt==1.5.1

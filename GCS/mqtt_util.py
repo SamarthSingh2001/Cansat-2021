@@ -33,10 +33,11 @@ mqttc.on_log = on_log
 topic = 'teams/3226' # team number
 # Connect
 mqttc.username_pw_set("t1010", "t1010pass") # made up username and password
-for mqtt
+#for mqtt
 #mqttc.connect(url.hostname, url.port) # establish connection
 mqttc.connect("cansat.info",1883)
 
+"""
 # Publish a message
 fd = csv_data # data from the xbee on packet recieved method
 dat = fd.read() # read in whole file
@@ -49,6 +50,7 @@ while 1:#REPLACE with update() function in main
             if b[3] == 'C': # check if container data
                 time.sleep(1) # insert 1 second interval unless payload adata
             mqttc.publish(topic, i) # send the line of data
+"""
 
 def send_packet(string):
     csv_data = string

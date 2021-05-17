@@ -19,14 +19,15 @@ import csv_generation
 import xbee
 
 # uncomment this if running examples
-pyqtgraph.examples.run()
+#pyqtgraph.examples.run()
 
 
 # GUI
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("Team 3226 P.O.P.T.A.R.T.S. Ground Station")
-window.resize(2000, 1100)
+#window.resize(2000, 1100) 
+window.resize(1600, 900)
 
 
 # widgets
@@ -52,11 +53,14 @@ window.show()
 
 # update function
 def update():
+
+    # update graph and container/payload states
     graphs.update()
 
     #status updates
     status_section.mqttStatus(constants.mqtt_flag)
     status_section.simulationStatus(constants.sim_enable_flag, constants.sim_activate_flag)
+    status_section.update() # this update function is for mission time
     if constants.sp1_deployed_flag:
         status_section.payload1Deployed()
     if constants.sp2_deployed_flag:
