@@ -119,13 +119,13 @@ def updateContainerState(state):
         containerState.setText("State: Ascending")
         containerState.setStyleSheet("color: green")
         payload1State.setText("Payload 1 State: Ascending and NOT Deployed")
-        payload1State.setStyleSheet("color: yellow")
+        payload1State.setStyleSheet("color: orange")
         payload2State.setText("Payload 2 State: Ascending and NOT Deployed")
-        payload2State.setStyleSheet("color: yellow")
+        payload2State.setStyleSheet("color: orange")
 
     elif(state == "DESCENT"):
         containerState.setText("State: Descending")
-        containerState.setStyleSheet("color: yellow")
+        containerState.setStyleSheet("color: orange")
     elif(state == "LANDED"):
         containerState.setText("State: Landed")
         containerState.setStyleSheet("color: purple")

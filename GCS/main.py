@@ -17,7 +17,8 @@ import states
 import packet_history
 import csv_generation
 import xbee
-
+import sys
+from testing import local_test as test
 # uncomment this if running examples
 #pyqtgraph.examples.run()
 
@@ -77,5 +78,11 @@ csv_generation.build()#to create the csv files
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start(1000)
+
+# local test arg
+if len(sys.argv) > 1:
+    if sys.argv[1] == "-t":
+        test.run()
+
 
 app.exec()

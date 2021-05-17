@@ -1,6 +1,6 @@
 """
 @file   graphs.py
-@author Emil Roy
+@author Emil Roy, Joshua Tenorio
 
 This file contains the Status Section widget.
 """
@@ -12,24 +12,26 @@ import simulation as sim
 import numpy as np
 
 # used for stand in values
-simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
 initial_array = [0] * 120 # create a List of 120 zero's
+initial_cx = np.array(list(range(-120, 0)))
+initial_sp1x = (list(range(-120, 0)))
+initial_sp2x = np.array(list(range(-120, 0)))
 
 # graph the containers voltage
 containerVoltageGraph = pg.GraphicsLayoutWidget()
-containerVoltageData = np.array(simp_values).astype(float)
+containerVoltageData = np.array(initial_array).astype(float)
 cvPlot = containerVoltageGraph.addPlot(title = "Container Voltage Data")
-containerVoltageCurve = cvPlot.plot(containerVoltageData)
+containerVoltageCurve = cvPlot.plot(y=containerVoltageData,x=initial_cx)
 
 #graph to check the containers temperature
 containerTempGraph = pg.GraphicsLayoutWidget()
-containerTempData = np.array(simp_values).astype(float)
+containerTempData = np.array(initial_array).astype(float)
 ctPlot = containerTempGraph.addPlot(title = "Container Temperature Data")
 containerTempCurve = ctPlot.plot(containerTempData)
 
 #graph to check the containers altitude
 containerAltitudeGraph = pg.GraphicsLayoutWidget()
-containerAltitudeData = np.array(simp_values).astype(float)
+containerAltitudeData = np.array(initial_array).astype(float)
 caPlot = containerAltitudeGraph.addPlot(title = "Container Altitude Data")
 containerAltitudeCurve = caPlot.plot(containerAltitudeData)
 
@@ -37,19 +39,19 @@ containerAltitudeCurve = caPlot.plot(containerAltitudeData)
 
 #graph to check the payload temperatures
 payload1TempGraph = pg.GraphicsLayoutWidget()
-p1TempData = np.array(simp_values).astype(float)
+p1TempData = np.array(initial_array).astype(float)
 p1tPlot = payload1TempGraph.addPlot(title = "Payload 1 Temperature Data")
 p1TempCurve = p1tPlot.plot(p1TempData)
 
 #graph to check the payload altitude
 payload1AltitudeGraph = pg.GraphicsLayoutWidget()
-p1AltitudeData = np.array(simp_values).astype(float)
+p1AltitudeData = np.array(initial_array).astype(float)
 p1aPlot = payload1AltitudeGraph.addPlot(title = "Payload 1 Altitude Data")
 p1AltitudeCurve = p1aPlot.plot(p1AltitudeData)
 
 #graph to check the payload speed
 payload1RotationRateGraph = pg.GraphicsLayoutWidget()
-p1RPMdata = np.array(simp_values).astype(float)
+p1RPMdata = np.array(initial_array).astype(float)
 p1rPlot = payload1RotationRateGraph.addPlot(title = "Payload 1 Rotation Rate Data")
 p1RPMcurve = p1rPlot.plot(p1RPMdata)
 
@@ -57,19 +59,19 @@ p1RPMcurve = p1rPlot.plot(p1RPMdata)
 
 #graph to check the payload temperatures
 payload2TempGraph = pg.GraphicsLayoutWidget()
-p2TempData = np.array(simp_values).astype(float)
+p2TempData = np.array(initial_array).astype(float)
 p2tPlot = payload2TempGraph.addPlot(title = "Payload 2 Temperature Data")
 p2TempCurve = p2tPlot.plot(p2TempData)
 
 #graph to check the payload altitude
 payload2AltitudeGraph = pg.GraphicsLayoutWidget()
-p2AltitudeData = np.array(simp_values).astype(float)
+p2AltitudeData = np.array(initial_array).astype(float)
 p2aPlot = payload2AltitudeGraph.addPlot(title = "Payload 2 Altitude Data")
 p2AltitudeCurve = p2aPlot.plot(p2AltitudeData)
 
 #graph to check the payload speed
 payload2RotationRateGraph = pg.GraphicsLayoutWidget()
-p2RPMdata = np.array(simp_values).astype(float)
+p2RPMdata = np.array(initial_array).astype(float)
 p2rPLot = payload2RotationRateGraph.addPlot(title = "Payload 2 Rotation Rate Data")
 p2RPMcurve = p2rPLot.plot(p2RPMdata)
 
@@ -137,10 +139,13 @@ def update_data(packet):
     global p2AltitudeData, p2RPMdata, p2TempData
     global containerPtr, p1Ptr, p2Ptr
 
+    # send packet to states widget
+    states.update_state(packet)
+
     # parse packet for stuff to update
     packet_args = packet.split(",")
+
     if packet_args[3] == "C":
-        # TODO: update container/payload state widgets
         containerPtr += 1
         containerAltitudeData[:-1] = containerAltitudeData[1:]
         containerAltitudeData[-1] = float(packet_args[7])
