@@ -55,9 +55,6 @@ conInvalidPackets = 2
 conValidPacketLabel = QLabel("Valid Packets: " + str(conValidPackets))#TODO how do we add packets?
 conInvalidPacketLabel = QLabel("Invalid Packets: " + str(conInvalidPackets))
 
-conVoltage = 4 #placeholder
-conVoltageLabel = QLabel("Voltage: " + str(conVoltage))
-
 containerState = QLabel("State: Launchpad")
 containerState.setStyleSheet("color: red")
 
@@ -86,24 +83,23 @@ def buildContainerLayout():
     layout.addWidget(conValidPacketLabel)
     layout.addWidget(conInvalidPacketLabel)
     layout.addWidget(containerState)
-    layout.addWidget(conVoltageLabel)
     return layout
 
 #function to update first payload states
 def updatePayload1State(state):
-    if(state == "deployed"):
+    if(state == "R"):
         payload1State.setText("Payload 1 State: Deployed and Descending")
         payload1State.setStyleSheet("color: green")
 
 #function to update if second payload states
 def updatePayload2State(state):
-    if (state == "deployed"):
+    if (state == "R"):
         payload2State.setText("Payload 2 State: Deployed and Descending")
         payload2State.setStyleSheet("color: green")
 
 #function to update container states
 def updateContainerState(state):
-    if(state == "asending"):
+    if(state == "ASCENT"):
         containerState.setText("State: Ascending")
         containerState.setStyleSheet("color: green")
         payload1State.setText("Payload 1 State: Ascending and NOT Deployed")
@@ -111,10 +107,44 @@ def updateContainerState(state):
         payload2State.setText("Payload 2 State: Ascending and NOT Deployed")
         payload2State.setStyleSheet("color: yellow")
 
-    elif(state == "descending"):
+    elif(state == "DESCENT"):
         containerState.setText("State: Descending")
         containerState.setStyleSheet("color: yellow")
-    elif(state == "landed"):
+    elif(state == "LANDED"):
         containerState.setText("State: Landed")
         containerState.setStyleSheet("color: purple")
-    #TODO what if input wrong cmd?
+
+def update_packet_count(packetCount, sp1PacketCount, sp2PacketCount):
+    # update variables
+    global pay1ValidPackets, pay2ValidPackets, conValidPackets
+    if packetCount + sp1PacketCount + sp2PacketCount == -3:
+        pay1ValidPackets += 1
+    elif packetCount + sp1PacketCount + sp2PacketCount == -6:
+        pay2ValidPackets += 1
+    else:
+        pay1ValidPackets = sp1PacketCount
+        pay2ValidPackets = sp2PacketCount
+        conValidPackets = packetCount - sp1PacketCount - sp2PacketCount
+
+    # update labels
+    pay1ValidPacketLabel.setText("Valid Packets: " + str(pay1ValidPackets))
+    pay2ValidPacketLabel.setText("Valid Packets: " + str(pay2ValidPackets))
+    conValidPacketLabel.setText("Valid Packets: " + str(conValidPackets))
+
+
+
+
+def update_state(packet):
+    packet_args = packet.split(",")
+    if packet_args[3] == "C":
+        # update states
+        updatePayload1State(packet_args[5])
+        updatePayload2State(packet_args[6])
+        updateContainerState(packet_args[15])
+
+        # next, update packet counts regardless of type of packet
+        update_packet_count(int(packet_args[2]), int(packet_args[16]), int(packet_args[17]))
+    elif packet_args[3] == "S1":
+        update_packet_count(-1, -1, -1)
+    elif packet_args[3] == "S2":
+        update_packet_count(-2, -2, -2)

@@ -21,5 +21,5 @@ def build():
 
 # to be used in the xbee.data_received_callback(message) function
 # each packet will be appended to the QPlainTextEdit history widget
-def packet_received():
-    pass
+def packet_received(packet):
+    history.appendPlainText(packet + "\n")

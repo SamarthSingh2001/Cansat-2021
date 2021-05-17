@@ -9,6 +9,7 @@ import csv_generation as csv_gen
 import mqtt_util as mqtt
 import graphs
 import status_section as status
+import packet_history
 
 # placeholder xbee object
 # note: VERY subject to change
@@ -30,6 +31,7 @@ def on_packet_received(xbee_message):
     mqtt.send_packet(xbee_message)
     graphs.update_data(xbee_message)
     status.updateMissionTime(xbee_message)
-    
+    packet_history.packet_received(xbee_message)
+
     # TODO: parse xbee_message into a List
     #       send relevant items to relevant widgets
