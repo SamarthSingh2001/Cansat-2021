@@ -18,7 +18,7 @@ payload1Label.setStyleSheet("color: blue;"
                          "border-width: 2px;"
                          "border-color: #1E90FF;"
                          "border-radius: 3px")
-pay1ValidPackets = 2 #example values
+pay1ValidPackets = 0
 pay1InvalidPackets = 0
 pay1ValidPacketLabel = QLabel("Valid Packets: " + str(pay1ValidPackets))#TODO how do we add packets?
 pay1InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay1InvalidPackets))
@@ -31,7 +31,7 @@ payload2Label.setStyleSheet("color: blue;"
                          "border-width: 2px;"
                          "border-color: #1E90FF;"
                          "border-radius: 3px")
-pay2ValidPackets = 2 #example values
+pay2ValidPackets = 0
 pay2InvalidPackets = 0
 pay2ValidPacketLabel = QLabel("Valid Packets: " + str(pay2ValidPackets))#TODO how do we add packets?
 pay2InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay2InvalidPackets))
@@ -50,13 +50,25 @@ containerLabel.setStyleSheet("color: blue;"
                          "border-width: 2px;"
                          "border-color: #1E90FF;"
                          "border-radius: 3px")
-conValidPackets = 6
-conInvalidPackets = 2
+conValidPackets = 0
+conInvalidPackets = 0
 conValidPacketLabel = QLabel("Valid Packets: " + str(conValidPackets))#TODO how do we add packets?
 conInvalidPacketLabel = QLabel("Invalid Packets: " + str(conInvalidPackets))
 
 containerState = QLabel("State: Launchpad")
 containerState.setStyleSheet("color: red")
+
+# Container GPS info
+gpsTime = "no info received"
+gpsLat = 0.0
+gpsLon = 0.0
+gpsAlt = 0.0
+gpsSats = 0
+
+gpsTimeLabel = QLabel("GPS Time (UTC): " + gpsTime)
+gpsCoordLabel = QLabel("GPS Coords: " + str(gpsLat) + ", " + str(gpsLon))
+gpsAltLabel = QLabel("GPS Altitude (m): " + str(gpsAlt))
+gpsSatsLabel = QLabel(str(gpsSats) + " GPS satellites tracking Container")
 
 # returns layout for payload info
 def buildPayLayout():
@@ -83,6 +95,10 @@ def buildContainerLayout():
     layout.addWidget(conValidPacketLabel)
     layout.addWidget(conInvalidPacketLabel)
     layout.addWidget(containerState)
+    layout.addWidget(gpsTimeLabel)
+    layout.addWidget(gpsCoordLabel)
+    layout.addWidget(gpsAltLabel)
+    layout.addWidget(gpsSatsLabel)
     return layout
 
 #function to update first payload states
@@ -131,7 +147,18 @@ def update_packet_count(packetCount, sp1PacketCount, sp2PacketCount):
     pay2ValidPacketLabel.setText("Valid Packets: " + str(pay2ValidPackets))
     conValidPacketLabel.setText("Valid Packets: " + str(conValidPackets))
 
+def update_gps(time, lat, lon, alt, sats):
+    global gpsTime, gpsLat, gpsLon, gpsAlt, gpsSats
+    gpsTime = time
+    gpsLat = lat
+    gpsLon = lon
+    gpsAlt = alt
+    gpsSats = sats
 
+    gpsTimeLabel.setText("GPS Time (UTC): " + gpsTime)
+    gpsCoordLabel.setText("GPS Coords: " + str(gpsLat) + ", " + str(gpsLon))
+    gpsAltLabel.setText("GPS Altitude (m): " + str(gpsAlt))
+    gpsSatsLabel.setText(str(gpsSats) + " GPS satellites tracking Container")
 
 
 def update_state(packet):
@@ -141,6 +168,9 @@ def update_state(packet):
         updatePayload1State(packet_args[5])
         updatePayload2State(packet_args[6])
         updateContainerState(packet_args[15])
+        
+        # update gps information
+        update_gps(packet_args[10], packet_args[11], packet_args[12], packet_args[13], packet_args[14])
 
         # next, update packet counts regardless of type of packet
         update_packet_count(int(packet_args[2]), int(packet_args[16]), int(packet_args[17]))

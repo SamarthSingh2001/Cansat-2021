@@ -13,6 +13,7 @@ import numpy as np
 
 # used for stand in values
 simp_values = sim.parse_sim_profile("simp_cmd_example.txt")
+initial_array = [0] * 120 # create a List of 120 zero's
 
 # graph the containers voltage
 containerVoltageGraph = pg.GraphicsLayoutWidget()

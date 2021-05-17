@@ -34,7 +34,7 @@ def parse_sim_profile(file_name):
 err_out_of_bounds = "SIM ERR: attempted to retrieve a packet out of profile's bounds"
 # returns the nth val in the sim profile to transmit to container
 def get_nth_value(n):
-    sim_profile = parse_sim_profile("simp_cmd_example.txt")
+    sim_profile = parse_sim_profile("simp_cmd_example.txt") # TODO: this can be optimized by caching this result in a file global variable
     if n < 0 or n >= len(sim_profile):
         print(err_out_of_bounds)
         return err_out_of_bounds
@@ -49,8 +49,6 @@ def transmit_packet():
         packet = "CMD,3226,SIMP," + str(data)
         print(packet)
         transmit_packet.itr += 1
-        # TODO: transmit this packet string using the xbee to the container
-        #xbee.send_packet(packet)
         return packet
     else:
         transmit_packet.itr += 1
