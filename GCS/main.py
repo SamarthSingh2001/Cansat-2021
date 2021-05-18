@@ -18,6 +18,8 @@ import packet_history
 import csv_generation
 import xbee
 import sys
+import os.path
+from os import path
 from testing import local_test as test
 # uncomment this if running examples
 #pyqtgraph.examples.run()
@@ -27,7 +29,7 @@ from testing import local_test as test
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("Team 3226 P.O.P.T.A.R.T.S. Ground Station")
-#window.resize(2000, 1100) 
+#window.resize(2000, 1100)
 window.resize(1600, 900)
 
 
@@ -73,7 +75,8 @@ def update():
         if sim_packet != "null":
             xbee.send_packet(sim_packet)
 
-csv_generation.build()#to create the csv files
+if path.exists("reports/Flight_3226_C.csv") == False:
+    csv_generation.build()#to create the csv files
 
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
