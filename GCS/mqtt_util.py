@@ -1,6 +1,6 @@
 """
 @file mqtt_util.py
-@author cansat
+@author cansat/Emil
 
 Implementation for sending data to MQTT broker for live-remote viewing of data
 """
@@ -8,7 +8,6 @@ import paho.mqtt.client as mqtt
 import os
 import time
 # Define event callbacks
-csv_data = ""
 
 def on_connect(client, userdata, flags, rc):
     print("rc: " + str(rc))
@@ -32,25 +31,10 @@ mqttc.on_log = on_log
 
 topic = 'teams/3226' # team number
 # Connect
-mqttc.username_pw_set("t1010", "t1010pass") # made up username and password
-#for mqtt
+mqttc.username_pw_set("3226", "Kaukteti492%") # made up username and password
+
 #mqttc.connect(url.hostname, url.port) # establish connection
 mqttc.connect("cansat.info",1883)
 
-"""
-# Publish a message
-fd = csv_data # data from the xbee on packet recieved method
-dat = fd.read() # read in whole file
-fd.close()
-dat = dat.split('\n') # split lines
-while 1:#REPLACE with update() function in main
-    for i in dat: # go through all the lines in the file
-        b = i.split(',') # split line to locate element 3
-        if len(b) > 1:
-            if b[3] == 'C': # check if container data
-                time.sleep(1) # insert 1 second interval unless payload adata
-            mqttc.publish(topic, i) # send the line of data
-"""
-
-def send_packet(string):
-    csv_data = string
+def send_packet(message):
+    mqttc.publish("teams/3226", message)
