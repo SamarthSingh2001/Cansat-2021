@@ -36,10 +36,10 @@ pay2InvalidPackets = 0
 pay2ValidPacketLabel = QLabel("Valid Packets: " + str(pay2ValidPackets))#TODO how do we add packets?
 pay2InvalidPacketLabel = QLabel("Invalid Packets: " + str(pay2InvalidPackets))
 
-payload1State = QLabel("Payload 1 State: Launchpad and Not Deployed")
+payload1State = QLabel("Payload 1 State: Launchpad and\nNot Deployed")
 payload1State.setStyleSheet("color: red")
 
-payload2State = QLabel("Payload 2 State: Launchpad and Not Deployed")
+payload2State = QLabel("Payload 2 State: Launchpad and\nNot Deployed")
 payload2State.setStyleSheet("color: red")
 
 #create container states/statuses
@@ -104,13 +104,13 @@ def buildContainerLayout():
 #function to update first payload states
 def updatePayload1State(state):
     if(state == "R"):
-        payload1State.setText("Payload 1 State: Deployed and Descending")
+        payload1State.setText("Payload 1 State: Deployed and\nDescending")
         payload1State.setStyleSheet("color: green")
 
 #function to update if second payload states
 def updatePayload2State(state):
     if (state == "R"):
-        payload2State.setText("Payload 2 State: Deployed and Descending")
+        payload2State.setText("Payload 2 State: Deployed and\nDescending")
         payload2State.setStyleSheet("color: green")
 
 #function to update container states
@@ -118,9 +118,9 @@ def updateContainerState(state):
     if(state == "ASCENT"):
         containerState.setText("State: Ascending")
         containerState.setStyleSheet("color: green")
-        payload1State.setText("Payload 1 State: Ascending and NOT Deployed")
+        payload1State.setText("Payload 1 State: Ascending and\nNOT Deployed")
         payload1State.setStyleSheet("color: orange")
-        payload2State.setText("Payload 2 State: Ascending and NOT Deployed")
+        payload2State.setText("Payload 2 State: Ascending and\nNOT Deployed")
         payload2State.setStyleSheet("color: orange")
 
     elif(state == "DESCENT"):

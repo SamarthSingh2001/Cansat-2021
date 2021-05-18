@@ -39,17 +39,17 @@ def append_csv_file(line):
     type = data[3] #to check if it came from container or which payload
     #appends data to the proper csv file
     if type == 'C':
-        with open('reports/Flight_3226_C.csv', 'a') as ad:
+        with open('reports/Flight_3226_C.csv', 'a', newline='') as ad:
             writer_object = writer(ad)
             writer_object.writerow(data)
             ad.close()
     if type == 'S1':
-        with open('reports/Flight_3226_SP1.csv', 'a') as ad:
+        with open('reports/Flight_3226_SP1.csv', 'a', newline='') as ad:
             writer_object = writer(ad)
             writer_object.writerow(data)
             ad.close()
     if type == 'S2':
-        with open('reports/Flight_3226_SP2.csv', 'a') as ad:
+        with open('reports/Flight_3226_SP2.csv', 'a', newline='') as ad:
             writer_object = writer(ad)
             writer_object.writerow(data)
             ad.close()

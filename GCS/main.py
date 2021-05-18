@@ -7,20 +7,18 @@ Main program for the Ground Station software.
 from  PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget, QHBoxLayout, QGridLayout
 import pyqtgraph.examples
 import pyqtgraph as pg
-import numpy as np
 import cmd_terminal
 import status_section
 import graphs
 import simulation as sim
 import constants
-import states
 import packet_history
 import csv_generation
 import xbee
 import sys
-import os.path
 from os import path
 from testing import local_test as test
+
 # uncomment this if running examples
 #pyqtgraph.examples.run()
 

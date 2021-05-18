@@ -33,12 +33,12 @@ def update1():
     curve2.setData(data1)
     curve2.setPos(ptr1, 0)
     
-"""
+
 # 2) Allow data to accumulate. In these examples, the array doubles in length
 #    whenever it is full. 
 win.nextRow()
-p3 = win.addPlot()
-p4 = win.addPlot()
+p3 = win.addPlot(title="p3")
+p4 = win.addPlot(title="p4")
 # Use automatic downsampling and clipping to reduce the drawing load
 p3.setDownsampling(mode='peak')
 p4.setDownsampling(mode='peak')
@@ -63,8 +63,7 @@ def update2():
     curve3.setData(data3[:ptr3])
     curve3.setPos(-ptr3, 0)
     curve4.setData(data3[:ptr3])
-"""
-"""
+
 # 3) Plot in chunks, adding one new plot curve for every 100 samples
 chunkSize = 100
 # Remove chunks after we have 10
@@ -100,11 +99,13 @@ def update3():
     data5[i+1,1] = np.random.normal()
     curve.setData(x=data5[:i+2, 0], y=data5[:i+2, 1])
     ptr5 += 1
-"""
+
 
 # update all plots
 def update():
     update1()
+    update2()
+    update3()
 
 timer = pg.QtCore.QTimer()
 timer.timeout.connect(update)
