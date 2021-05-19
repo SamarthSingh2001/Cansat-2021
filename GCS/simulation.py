@@ -6,7 +6,7 @@ Functionality and implementation of Simulation Mode
 """
 
 # TODO: add a way to specify the filename for simulation file
-
+import csv
 
 def parse_sim_profile(file_name):
     # figure out file extension bc not sure if it will be in .txt or .csv
@@ -26,10 +26,19 @@ def parse_sim_profile(file_name):
         return data
 
     elif f_extension == "csv": # case 2: csv file
-        pass
+        with open(file, 'r') as file:
+            reader = csv.reader(file)
+
+            data=[]
+            for row in reader:#TODO how to test this?
+                data.append(row[3])
+
+            file.close()
+            return data
     else:
         print("Profile is not a .txt or .csv file")
         return 0
+
 
 err_out_of_bounds = "SIM ERR: attempted to retrieve a packet out of profile's bounds"
 # returns the nth val in the sim profile to transmit to container

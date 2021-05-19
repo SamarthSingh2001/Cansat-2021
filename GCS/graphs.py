@@ -109,7 +109,7 @@ def build():
 
 
     layout.setRowMinimumHeight(2, 10)#adds spacing between payloads and container
-    #TODO add way to seperate payload and container stuff better
+    #add container stuff
     layout.addLayout(conWidget, 3, 0)
     layout.addWidget(containerTempGraph, 3, 1)
     layout.addWidget(containerAltitudeGraph, 3, 2)
