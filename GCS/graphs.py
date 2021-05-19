@@ -22,18 +22,24 @@ containerVoltageGraph = pg.GraphicsLayoutWidget()
 containerVoltageData = np.array(initial_array).astype(float)
 cvPlot = containerVoltageGraph.addPlot(title = "Container Voltage Data")
 containerVoltageCurve = cvPlot.plot(containerVoltageData)
+cvPlot.setLabel('left', "Volts(V)")
+cvPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the containers temperature
 containerTempGraph = pg.GraphicsLayoutWidget()
 containerTempData = np.array(initial_array).astype(float)
 ctPlot = containerTempGraph.addPlot(title = "Container Temperature Data")
 containerTempCurve = ctPlot.plot(containerTempData)
+ctPlot.setLabel('left', "Temperature(C°)")
+ctPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the containers altitude
 containerAltitudeGraph = pg.GraphicsLayoutWidget()
 containerAltitudeData = np.array(initial_array).astype(float)
 caPlot = containerAltitudeGraph.addPlot(title = "Container Altitude Data")
 containerAltitudeCurve = caPlot.plot(containerAltitudeData)
+caPlot.setLabel('left', "Altitude(m)")
+caPlot.setLabel('bottom', "# of Packets")
 
 #PAYLOAD 1 STUFF BELOW------------------------------------------------------------
 
@@ -42,18 +48,24 @@ payload1TempGraph = pg.GraphicsLayoutWidget()
 p1TempData = np.array(initial_array).astype(float)
 p1tPlot = payload1TempGraph.addPlot(title = "Payload 1 Temperature Data")
 p1TempCurve = p1tPlot.plot(p1TempData)
+p1tPlot.setLabel('left', "Temperature(C°)")
+p1tPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the payload altitude
 payload1AltitudeGraph = pg.GraphicsLayoutWidget()
 p1AltitudeData = np.array(initial_array).astype(float)
 p1aPlot = payload1AltitudeGraph.addPlot(title = "Payload 1 Altitude Data")
 p1AltitudeCurve = p1aPlot.plot(p1AltitudeData)
+p1aPlot.setLabel('left', "Altitude(m)")
+p1aPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the payload speed
 payload1RotationRateGraph = pg.GraphicsLayoutWidget()
 p1RPMdata = np.array(initial_array).astype(float)
 p1rPlot = payload1RotationRateGraph.addPlot(title = "Payload 1 Rotation Rate Data")
 p1RPMcurve = p1rPlot.plot(p1RPMdata)
+p1rPlot.setLabel('left', "Rotations Per Minute(RPM)")
+p1rPlot.setLabel('bottom', "# of Packets")
 
 #PAYLOAD 2 Stuff Below-----------------------------------------------------
 
@@ -62,19 +74,24 @@ payload2TempGraph = pg.GraphicsLayoutWidget()
 p2TempData = np.array(initial_array).astype(float)
 p2tPlot = payload2TempGraph.addPlot(title = "Payload 2 Temperature Data")
 p2TempCurve = p2tPlot.plot(p2TempData)
+p2tPlot.setLabel('left', "Temperature(C°)")
+p2tPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the payload altitude
 payload2AltitudeGraph = pg.GraphicsLayoutWidget()
 p2AltitudeData = np.array(initial_array).astype(float)
 p2aPlot = payload2AltitudeGraph.addPlot(title = "Payload 2 Altitude Data")
 p2AltitudeCurve = p2aPlot.plot(p2AltitudeData)
+p2aPlot.setLabel('left', "Altitude(m)")
+p2aPlot.setLabel('bottom', "# of Packets")
 
 #graph to check the payload speed
 payload2RotationRateGraph = pg.GraphicsLayoutWidget()
 p2RPMdata = np.array(initial_array).astype(float)
 p2rPLot = payload2RotationRateGraph.addPlot(title = "Payload 2 Rotation Rate Data")
 p2RPMcurve = p2rPLot.plot(p2RPMdata)
-
+p2rPLot.setLabel('left', "Rotations Per Minute(RPM)")
+p2rPLot.setLabel('bottom', "# of Packets")
 
 
 def build():
@@ -97,7 +114,7 @@ def build():
     layout.addWidget(containerTempGraph, 3, 1)
     layout.addWidget(containerAltitudeGraph, 3, 2)
     layout.addWidget(containerVoltageGraph, 3, 3)
-    
+
     return layout
 
 # these variables are used for updating the graphs
@@ -213,4 +230,3 @@ def update_data(packet):
             p2Ptr += 1
     else:
         print("GRAPH ERR: invalid packet")
-

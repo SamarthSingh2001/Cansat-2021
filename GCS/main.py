@@ -49,7 +49,6 @@ layout.addLayout(graphs_widget,4)
 layout.addLayout(status_widget,0)
 
 window.setLayout(layout)
-#window.setStyleSheet('background-color: #2C2726')
 window.show()
 
 # update function
