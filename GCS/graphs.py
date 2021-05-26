@@ -96,13 +96,15 @@ p2rPLot.setLabel('bottom', "# of Packets")
 
 def build():
     layout = QGridLayout()
-    payWidget: QVBoxLayout = states.buildPayLayout()
+    pay1Widget: QVBoxLayout = states.buildPay1Layout()
+    pay2Widget: QVBoxLayout = states.buildPay2Layout()
     conWidget: QVBoxLayout = states.buildContainerLayout()
-    layout.addLayout(payWidget, 0, 0)
+    layout.addLayout(pay1Widget, 0, 0)
     layout.addWidget(payload1TempGraph, 0, 1)
     layout.addWidget(payload1AltitudeGraph, 0, 2)
     layout.addWidget(payload1RotationRateGraph, 0, 3)
     #Adding payload 2 graphs now
+    layout.addLayout(pay2Widget, 1, 0)
     layout.addWidget(payload2TempGraph, 1, 1)
     layout.addWidget(payload2AltitudeGraph, 1, 2)
     layout.addWidget(payload2RotationRateGraph, 1, 3)

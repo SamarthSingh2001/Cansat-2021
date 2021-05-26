@@ -71,7 +71,7 @@ gpsAltLabel = QLabel("GPS Altitude (m): " + str(gpsAlt))
 gpsSatsLabel = QLabel(str(gpsSats) + " GPS satellites tracking Container")
 
 # returns layout for payload info
-def buildPayLayout():
+def buildPay1Layout():
     #adding all the widgets to the layout
     layout = QVBoxLayout()
     # payload 1
@@ -79,8 +79,11 @@ def buildPayLayout():
     layout.addWidget(pay1ValidPacketLabel)
     layout.addWidget(pay1InvalidPacketLabel)
     layout.addWidget(payload1State)
+    return layout
 
-
+def buildPay2Layout():
+    #adding all the widgets to the layout
+    layout = QVBoxLayout()
     # payload 2
     layout.addWidget(payload2Label)
     layout.addWidget(pay2ValidPacketLabel)
@@ -168,7 +171,7 @@ def update_state(packet):
         updatePayload1State(packet_args[5])
         updatePayload2State(packet_args[6])
         updateContainerState(packet_args[15])
-        
+
         # update gps information
         update_gps(packet_args[10], packet_args[11], packet_args[12], packet_args[13], packet_args[14])
 
