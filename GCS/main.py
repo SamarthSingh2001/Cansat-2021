@@ -72,6 +72,8 @@ def update():
         if sim_packet != "null":
             xbee.send_packet(sim_packet)
 
+
+
 if path.exists("reports/Flight_3226_C.csv") == False:
     csv_generation.build()#to create the csv files
 
