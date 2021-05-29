@@ -33,7 +33,7 @@ $ deactivate
 $ python3 -m venv venv
 
 # Start virtual environment
-$ source /venv/bin/activate
+$ source venv/bin/activate
 
 # Install requried packages
 $ pip install -r requirements.txt
@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 $ python3 main.py
 
 # Alternatively, run the GCS with option -t to initiate a local test
-$ python main.py -t
+$ python3 main.py -t
 
 # Leave the virtual environment
 $ deactivate
