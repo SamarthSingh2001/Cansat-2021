@@ -38,6 +38,14 @@ float v;
 float accel_val;
 float alt;
 
+void XBeeComsOut() {
+  
+}
+
+void XBeeComsIn() {
+  
+}
+
 void setup() { // setup/recovery state
   // put your setup code here, to run once:
   v0 = 0.0;

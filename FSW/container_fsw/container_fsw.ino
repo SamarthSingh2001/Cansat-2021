@@ -33,6 +33,19 @@ float temp_data;
 float pres_data;
 float alt_data;
 float hum_data;
+unsigned long delayTime;
+float temperature;
+float a_x;
+float a_y;
+float a_z;
+float gyro_x;
+float gyro_y;
+float gyro_z;
+float v0;
+float time_in_flight;
+float v;
+float accel_val;
+float alt;
 
 //#include <NewSoftSerial.h>
 // For the electronic wiring , you should :
@@ -45,6 +58,14 @@ long BaudRate = 57600 , sysTick = 0;
 char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
+
+void XBeeComsOut() {
+  
+}
+
+void XBeeComsIn() {
+  
+}
 
 void setup() {
   // put your setup code here, to run once:
@@ -129,4 +150,19 @@ void loop() {
   pres_data = bme.readPressure();
   alt_data = bme.readAltitude(SEALEVELPRESSURE_HPA);
   hum_data = bme.readHumidity();
+
+  if(v > 5.0) { // launchpad -> ascent (read/transmit to GCS)
+    
+  } else if(v < 0.0 && alt >= 670) { // ascent -> descent (read/transmit to GCS)
+    
+  } else if(alt = 0.0 && v == 0.0) { // descent -> landed (collect telem from SP, read and transmit, release of payloads)
+    if(alt == 500) { // release SP1
+      
+    } else if (alt == 400) { // release SP2
+      
+    }
+  } else { // launchpad (read/transmit to GCS)
+    
+  }
+  
 }
