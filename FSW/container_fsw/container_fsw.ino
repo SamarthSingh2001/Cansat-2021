@@ -1,7 +1,7 @@
 #include <Adafruit_GPS.h>
 
 // what's the name of the hardware serial port?
-#define GPSSerial Serial1
+#define GPSSerial Serial
 
 // Connect to the GPS on the hardware port
 Adafruit_GPS GPS(&GPSSerial);
@@ -116,10 +116,17 @@ void loop() {
   // put your main code here, to run repeatedly:
   char c = GPS.read();
   if(GPS.fix) { // get the gps information
-    
+      Serial.print("Location: ");
+      Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
+      Serial.print(", ");
+      Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);
+      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
+      Serial.print("Angle: "); Serial.println(GPS.angle);
+      Serial.print("Altitude: "); Serial.println(GPS.altitude);
+      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
   }
   temp_data = bme.readTemperature(); // reading the temperature
-  pres_data = bme.readPressuer();
-  alt_data = bme.readAltitiude(SEALEVELPRESSURE_HPA);
+  pres_data = bme.readPressure();
+  alt_data = bme.readAltitude(SEALEVELPRESSURE_HPA);
   hum_data = bme.readHumidity();
 }
