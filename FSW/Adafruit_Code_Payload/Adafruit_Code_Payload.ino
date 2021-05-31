@@ -46,7 +46,7 @@ void setup() {
         while (1) delay(10);
     }
     
-    Serial.println("-- Default Test --");
+    Serial.println("-- Setup function running --");
     delayTime = 1000;
 
     Serial.println();
@@ -63,7 +63,10 @@ void setup() {
     while (1) {
       delay(10);
     }
+
+  sox.getAccelRange();
     
+    /*
     Serial.print("Accelerometer range set to: ");
   switch (sox.getAccelRange()) {
   case LSM6DS_ACCEL_RANGE_2_G:
@@ -79,7 +82,10 @@ void setup() {
     Serial.println("+-16G");
     break;
   }
+  */
 
+  sox.getGyroRange();
+/*
   // sox.setGyroRange(LSM6DS_GYRO_RANGE_250_DPS );
   Serial.print("Gyro range set to: ");
   switch (sox.getGyroRange()) {
@@ -100,8 +106,11 @@ void setup() {
     break;
   case ISM330DHCX_GYRO_RANGE_4000_DPS:
     break; // unsupported range for the DSOX
-  }
+  }*/
 
+  sox.setAccelDataRate();
+
+/*
   // sox.setAccelDataRate(LSM6DS_RATE_12_5_HZ);
   Serial.print("Accelerometer data rate set to: ");
   switch (sox.getAccelDataRate()) {
@@ -138,8 +147,11 @@ void setup() {
   case LSM6DS_RATE_6_66K_HZ:
     Serial.println("6.66 KHz");
     break;
-  }
+  }*/
 
+  sox.getGyroDataRate();
+
+/*
   // sox.setGyroDataRate(LSM6DS_RATE_12_5_HZ);
   Serial.print("Gyro data rate set to: ");
   switch (sox.getGyroDataRate()) {
@@ -178,7 +190,7 @@ void setup() {
     break;
   }
 }
-
+*/
 
 void loop() { 
     printValues();
