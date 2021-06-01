@@ -1,6 +1,8 @@
 #include "Xbee.h"
 #include "Arduino.h"
 
-bool Xbee::setup(){
-    
+namespace PopTarts{
+    bool Xbee::setup(){
+        
+    }
 }
