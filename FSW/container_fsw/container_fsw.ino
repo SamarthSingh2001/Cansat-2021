@@ -1,4 +1,6 @@
 #include <Adafruit_GPS.h>
+#include <Xbee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
+// TODO: double check the library is usable/compatible with XBee pro 900HP 
 
 // what's the name of the hardware serial port?
 #define GPSSerial Serial
@@ -58,6 +60,8 @@ long BaudRate = 57600 , sysTick = 0;
 char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
+Xbee xbeePayload = XBee();
+Xbee xbeeContainer = XBee();
 
 void XBeeComsOut() {
   
