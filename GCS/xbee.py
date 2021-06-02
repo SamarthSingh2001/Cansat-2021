@@ -27,11 +27,12 @@ def send_packet(packet):
 
 # callback function when a packet from the Container is received
 def on_packet_received(xbee_message):
-    csv_gen.append_csv_file(xbee_message)
-    mqtt.send_packet(xbee_message)
-    graphs.update_data(xbee_message)
-    status.updateMissionTime(xbee_message)
-    packet_history.packet_received(xbee_message)
+    data = xbee_message.data.decode("utf8")
+    csv_gen.append_csv_file(data)
+    mqtt.send_packet(data)
+    graphs.update_data(data)
+    status.updateMissionTime(data)
+    packet_history.packet_received(data)
 
     # TODO: parse xbee_message into a List
     #       send relevant items to relevant widgets

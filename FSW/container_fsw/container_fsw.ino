@@ -61,15 +61,21 @@ char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
 Xbee xbeePayload = XBee();
-Xbee xbeeContainer = XBee();
+Xbee xbeeGS = XBee();
 
-void XBeeComsOut() {
+// FIXME: i think these should be SH/SL, not 0 or 1 or 4
+#define XBEE_SP1_DEST_ADDR  0x0000 // 0
+#define XBEE_SP2_DEST_ADDR  0x0001 // 1
+#define XBEE_GS_DEST_ADDR   0x0100 // 4
+
+void XBeeCommsOut() {
   
 }
 
-void XBeeComsIn() {
+void XBeeCommsIn() {
   
 }
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -139,6 +145,16 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  xbeePayload.readPacket();
+  xbeeGS.readPacket();
+  // reference https://github.com/andrewrapp/xbee-arduino/blob/master/examples/Series1_Rx/Series1_Rx.pde
+  // for receiving packets
+  // do stuff if a response is available
+  if(xbeePayload.getResponse().isAvailable()){
+
+  }
+
   char c = GPS.read();
   if(GPS.fix) { // get the gps information
       Serial.print("Location: ");
