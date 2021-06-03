@@ -37,6 +37,7 @@ float time_in_flight;
 float v;
 float accel_val;
 float alt;
+//const int led_pin 15;
 
 void XBeeComsOut() {
   
@@ -50,9 +51,22 @@ void setupDataPacket() {
   
 }
 
+void triggerLED() {
+  
+}
+
+void triggerBuzzer() {
+  
+}
+
+void readVoltage() {
+  
+}
+
 void setup() { // setup/recovery state
   // put your setup code here, to run once:
   v0 = 0.0;
+  pinMode(led_pin, OUTPUT);
   Serial.begin(9600);
     while(!Serial);    // time to get serial running
     Serial.println(F("BME280 test"));

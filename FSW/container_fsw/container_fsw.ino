@@ -49,6 +49,9 @@ float v;
 float accel_val;
 float alt;
 
+const int LEDpin = 15;
+const int BUZZERpin = 16;
+
 //#include <NewSoftSerial.h>
 // For the electronic wiring , you should :
 // Connect pinRx to the Pin2 of XBee(Tx , Dout)
@@ -78,6 +81,8 @@ void XBeeCommsIn() {
 
 
 void setup() {
+  pinMode(LEDpin, OUTPUT);
+  pinMode(BUZZERpin, OUTPUT);
   // put your setup code here, to run once:
   //while (!Serial);  // uncomment to have the sketch wait until Serial is ready
 
@@ -180,6 +185,9 @@ void loop() {
       
     } else if (alt == 400) { // release SP2
       
+    } else if(alt <= 0.0) {
+      digitalWrite(LEDpin, HIGH);
+      digitalWrite(BUZZERpin, HIGH);
     }
   } else { // launchpad (read/transmit to GCS)
     
