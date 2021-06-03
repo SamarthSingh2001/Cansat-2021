@@ -8,7 +8,7 @@
 #define BME_MOSI 11
 #define BME_CS 10
 
-#include <Adafruit_LSM6DSOX.h>
+#include <Adafruit_LSM6DS33.h>
 
 
 // For SPI mode, we need a CS pin
@@ -23,7 +23,7 @@
 Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_CS); // hardware SPI
 //Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
-Adafruit_LSM6DSOX sox;
+Adafruit_LSM6DS33 sox;
 unsigned long delayTime;
 float temperature;
 float a_x;
@@ -43,6 +43,10 @@ void XBeeComsOut() {
 }
 
 void XBeeComsIn() {
+  
+}
+
+void setupDataPacket() {
   
 }
 
@@ -109,6 +113,43 @@ void loop() {
   sox.getEvent(&accel, &gyro, &temp);
 
   accel_val = sqrt(pow(accel.acceleration.x, 2) + pow(accel.acceleration.y, 2) + pow(accel.acceleration.z, 2));
+
+  // print out the acceleration values
+  Serial.print("\t\tAccel X: ");
+  Serial.print(accel.acceleration.x);
+  Serial.print(" \tY: ");
+  Serial.print(accel.acceleration.y);
+  Serial.print(" \tZ: ");
+  Serial.print(accel.acceleration.z);
+  Serial.println(" m/s^2 ");
+
+  // print out the gyro values
+  Serial.print("\t\tGyro X: ");
+  Serial.print(gyro.gyro.x);
+  Serial.print(" \tY: ");
+  Serial.print(gyro.gyro.y);
+  Serial.print(" \tZ: ");
+  Serial.print(gyro.gyro.z);
+  Serial.println(" radians/s ");
+  Serial.println();
+
+  // Bme 280 readings
+  Serial.print("Temperature = ");
+  Serial.print(bme.readTemperature());
+  Serial.println(" °C");
+
+  Serial.print("Pressure = ");
+
+  Serial.print(bme.readPressure() / 100.0F);
+    Serial.println(" hPa");
+
+    Serial.print("Approx. Altitude = ");
+    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+    Serial.println(" m");
+
+    Serial.print("Humidity = ");
+    Serial.print(bme.readHumidity());
+    Serial.println(" %");
   
   v = v0 + accel_val*time_in_flight;
 

@@ -8,7 +8,7 @@
 #define BME_MOSI 11
 #define BME_CS 10
 
-#include <Adafruit_LSM6DSOX.h>
+#include <Adafruit_LSM6DS33.h>
 
 // For SPI mode, we need a CS pin
 #define LSM_CS 10
@@ -22,7 +22,7 @@
 Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_CS); // hardware SPI
 //Adafruit_BME280 bme(BME_CS, BME_MOSI, BME_MISO, BME_SCK); // software SPI
-
+Adafruit_LSM6DS33 sox;
 unsigned long delayTime;
 
 void setup() {
@@ -108,7 +108,7 @@ void setup() {
     break; // unsupported range for the DSOX
   }*/
 
-  sox.setAccelDataRate();
+  sox.getAccelDataRate();
 
 /*
   // sox.setAccelDataRate(LSM6DS_RATE_12_5_HZ);
@@ -188,9 +188,10 @@ void setup() {
   case LSM6DS_RATE_6_66K_HZ:
     Serial.println("6.66 KHz");
     break;
+  }*/
   }
 }
-*/
+
 
 void loop() { 
     printValues();
@@ -225,8 +226,8 @@ void loop() {
   Serial.println();
 
   delay(100);
-
 }
+
 
 
 void printValues() {
