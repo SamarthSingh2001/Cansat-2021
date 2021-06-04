@@ -44,6 +44,7 @@ int mission_state;
 int address = 0;
 int count = 0;
 //const int led_pin 15;
+int packetCount = 0;
 
 void writeEEPROM_state() {
   EEPROM.update(mission_state, address);
@@ -162,6 +163,8 @@ void loop() {
   sensors_event_t gyro;
   sensors_event_t temp;
 
+  
+  
   sox.getEvent(&accel, &gyro, &temp);
 
   accel_val = sqrt(pow(accel.acceleration.x, 2) + pow(accel.acceleration.y, 2) + pow(accel.acceleration.z, 2));
@@ -205,7 +208,18 @@ void loop() {
   
   v = v0 + accel_val*time_in_flight; // 
 
-  
+  packetCount++;
+  String telemetryPacket = "3226,";
+  telemetryPacket.concat(String(mission_time));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(packetCount));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat("S1");
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(bme.readTemperature()));
+  // TODO: need to concat rotation rate in RPM to packet
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
