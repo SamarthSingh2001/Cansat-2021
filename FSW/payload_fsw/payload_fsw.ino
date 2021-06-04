@@ -194,28 +194,33 @@ void loop() {
   Serial.println(" °C");
 
 
-    Serial.print("Approx. Altitude = ");
-    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    Serial.println(" m");
+  Serial.print("Approx. Altitude = ");
+  Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  Serial.println(" m");
 
-    Serial.print("Humidity = ");
-    Serial.print(bme.readHumidity());
-    Serial.println(" %");
+  Serial.print("Humidity = ");
+  Serial.print(bme.readHumidity());
+  Serial.println(" %");
   
   v = v0 + accel_val*time_in_flight; // 
 
+  // creating packet... //TODO need to put this in the packet function above
   packetCount++;
   String telemetryPacket = "3226,";
   telemetryPacket.concat(String(mission_time));
   telemetryPacket.concat(",");
   telemetryPacket.concat(String(packetCount));
   telemetryPacket.concat(",");
-  telemetryPacket.concat("S1");
+  telemetryPacket.concat("S1"); // this will be different for payload 2
   telemetryPacket.concat(",");
   telemetryPacket.concat(String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
   telemetryPacket.concat(",");
   telemetryPacket.concat(String(bme.readTemperature()));
-  // TODO: need to concat rotation rate in RPM to packet
+  // convert gyro z axis to RPM from radian/s, double check math
+  telemetryPacket.concat(String(gyro.gyro.z * 60 / (2*3.14159)));
+  
+  // TODO: save packet to onboard sd card
+
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
