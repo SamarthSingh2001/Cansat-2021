@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include <EEPROM.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
@@ -37,7 +38,44 @@ float time_in_flight;
 float v;
 float accel_val;
 float alt;
+float voltage_reading;
+unsigned long mission_time;
+int mission_state;
+int address = 0;
+int count = 0;
 //const int led_pin 15;
+
+void writeEEPROM_state() {
+  EEPROM.update(mission_state, address);
+  /*
+  address = address + 1;
+  if(address == EEPROM.length()) {
+    address = 0;
+  }
+  */
+}
+
+void writeEEPROM_time() {
+  if(mission_time < 255) {
+    EEPROM.update(mission_time, address + 1);
+  } else {
+    count++;
+    EEPROM.update(mission_time, address + count);
+  }
+   
+}
+
+void readEEPROM_state() {
+  mission_state = EEPROM.read(0);
+}
+
+void writeEEPROM_time() {
+  mission_time = EEPROM.read(1 + count);
+}
+
+void createDataPacket() {
+  
+}
 
 void XBeeComsOut() {
   
@@ -47,26 +85,24 @@ void XBeeComsIn() {
   
 }
 
-void setupDataPacket() {
-  
-}
-
-void triggerLED() {
-  
-}
-
-void triggerBuzzer() {
-  
-}
 
 void readVoltage() {
-  
+  int volt_val = analogRead(0); // place holder pin number
+  float vout = (volt_val * 5.0) / 1024.0;
+  float vin = vout / (100000.0 / (1000000.0 + 100000.0));
+  voltage_reading = vin;
 }
 
 void setup() { // setup/recovery state
   // put your setup code here, to run once:
+
+/* test to see what the init EEPROM values are
+  readEEPROM_state();       
+  readEEPROM_time();
+  */
+  
+  mission_state = 0;
   v0 = 0.0;
-  pinMode(led_pin, OUTPUT);
   Serial.begin(9600);
     while(!Serial);    // time to get serial running
     Serial.println(F("BME280 test"));
@@ -119,7 +155,9 @@ void setup() { // setup/recovery state
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
+  mission_time = millis(); // getting the mission time in millieconds
+  writeEEPROM_time();
+  readVoltage();
   sensors_event_t accel;
   sensors_event_t gyro;
   sensors_event_t temp;
@@ -165,14 +203,22 @@ void loop() {
     Serial.print(bme.readHumidity());
     Serial.println(" %");
   
-  v = v0 + accel_val*time_in_flight;
+  v = v0 + accel_val*time_in_flight; // 
 
-  // state switch statement bullshit
+  
+
+  // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
+    mission_state = 2;
+    writeEEPROM_state();
     
   } else if (v < 0.0 && alt > 670) { // ascent -> descent state (read + trans)
-    
+    mission_state = 3;
+    writeEEPROM_state();
+
   } else { // lauchpad state (read + trans)
+    mission_state = 1;
+    writeEEPROM_state();
     
   }
 
