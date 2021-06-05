@@ -46,6 +46,10 @@ float time_in_flight;
 float v;
 float accel_val;
 float alt;
+unsigned int long mission_time;
+int packetCount = 0;
+int address = 2;
+int count = 0;
 
 const int LEDpin = 15;
 const int BUZZERpin = 16;
@@ -67,6 +71,43 @@ XBee xbeePayload = XBee(); // the XBee that talks to the payloads
 // FIXME: i think these should be SH/SL, not 0 or 1 or 4
 #define XBEE_SP1_DEST_ADDR  0x0000 // 0
 #define XBEE_SP2_DEST_ADDR  0x0001 // 1
+
+void writeEEPROM_state() {
+  EEPROM.update(address, mission_state);
+  /*
+  address = address + 1;
+  if(address == EEPROM.length()) {
+    address = 0;
+  }
+  */
+}
+
+void writeEEPROM_time() {
+  if(mission_time < 255) {
+    EEPROM.update(address, mission_time/100); // writes seconds value
+  } else {
+    count++;
+    EEPROM.update(address + count, mission_time/100); // writes seconds value
+  }
+   
+}
+
+void writeEEPROM_pkt() {
+  EEPROM.update(1, packetCount);
+}
+
+void readEEPROM_pkt() {
+  packetCount = EEPROM.read(1);
+}
+
+void readEEPROM_state() {
+  mission_state = EEPROM.read(0);
+}
+
+void readEEPROM_time() {
+  mission_time = EEPROM.read(2 + count);
+}
+
 
 void XBeeCommsOut() {
   
