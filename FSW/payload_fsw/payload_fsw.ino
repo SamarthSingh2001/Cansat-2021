@@ -41,7 +41,7 @@ float alt;
 float voltage_reading;
 unsigned long mission_time;
 int mission_state;
-int address = 0;
+int address = 2;
 int count = 0;
 //const int led_pin 15;
 int packetCount = 0;
@@ -58,12 +58,20 @@ void writeEEPROM_state() {
 
 void writeEEPROM_time() {
   if(mission_time < 255) {
-    EEPROM.update(mission_time, address + 1);
+    EEPROM.update(mission_time/100, address); // writes seconds value
   } else {
     count++;
-    EEPROM.update(mission_time, address + count);
+    EEPROM.update(mission_time/100, address + count); // writes seconds value
   }
    
+}
+
+void writeEEPROM_pkt() {
+  EEPROM.update(packetCount);
+}
+
+void readEEPROM_pkt() {
+  packetCount = EEPROM.read(1);
 }
 
 void readEEPROM_state() {
@@ -116,6 +124,7 @@ void setup() { // setup/recovery state
 /* test to see what the init EEPROM values are
   readEEPROM_state();       
   readEEPROM_time();
+  readEEPROM_pkt();
   */
   
   mission_state = 0;
@@ -222,6 +231,9 @@ void loop() {
   v = v0 + accel_val*time_in_flight; // 
 
 
+  
+  // TODO: save packet to onboard sd card
+  writeEEPROM_pkt();
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
