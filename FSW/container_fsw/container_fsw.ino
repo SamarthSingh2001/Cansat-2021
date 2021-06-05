@@ -138,6 +138,8 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Adafruit GPS library basic parsing test!");
 
+  Serial2.begin(9600); // Serial2 is for payload XBee
+  xbeePayload.setSerial(Serial2);
   Serial3.begin(9600); // Serial3 is for GCS XBee
 
   // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
@@ -201,12 +203,13 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   xbeePayload.readPacket();
-  xbeeGS.readPacket();
   // reference https://github.com/andrewrapp/xbee-arduino/blob/master/examples/Series1_Rx/Series1_Rx.pde
   // for receiving packets
   // do stuff if a response is available
+  // TODO: move this to a function so we can call it during multiple states
   if(xbeePayload.getResponse().isAvailable()){
-
+      // need to parse packet from frame
+      relayPayloadPacket("placeholder");
   }
 
   char c = GPS.read();
