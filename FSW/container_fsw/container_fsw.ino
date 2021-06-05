@@ -1,5 +1,5 @@
 #include <Adafruit_GPS.h>
-#include <Xbee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
+#include <XBee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
 // TODO: double check the library is usable/compatible with XBee pro 900HP 
 
 // what's the name of the hardware serial port?
@@ -18,7 +18,6 @@ uint32_t timer = millis();
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-
 #define BME_SCK 13
 #define BME_MISO 12
 #define BME_MOSI 11
@@ -35,7 +34,6 @@ float temp_data;
 float pres_data;
 float alt_data;
 float hum_data;
-unsigned long delayTime;
 float temperature;
 float a_x;
 float a_y;
@@ -63,8 +61,8 @@ long BaudRate = 57600 , sysTick = 0;
 char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
-Xbee xbeePayload = XBee();
-Xbee xbeeGS = XBee();
+XBee xbeePayload = XBee();
+XBee xbeeGS = XBee();
 
 // FIXME: i think these should be SH/SL, not 0 or 1 or 4
 #define XBEE_SP1_DEST_ADDR  0x0000 // 0
