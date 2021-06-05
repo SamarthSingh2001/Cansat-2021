@@ -1,4 +1,4 @@
-#include <Wire.h>
+tu#include <Wire.h>
 #include <EEPROM.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
@@ -75,7 +75,23 @@ void writeEEPROM_time() {
 }
 
 void createDataPacket() {
+  // creating packet...
+  packetCount++;
+  String telemetryPacket = "3226,";
+  telemetryPacket.concat(String(mission_time));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(packetCount));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat("S1"); // this will be different for payload 2
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
+  telemetryPacket.concat(",");
+  telemetryPacket.concat(String(bme.readTemperature()));
+  // convert gyro z axis to RPM from radian/s, double check math
+  telemetryPacket.concat(String(gyro.gyro.z * 60 / (2*3.14159)));
+  telemetyrPacket.concat("\n"); // newline will be the delimiter for packet
   
+  // TODO: save packet to onboard sd card
 }
 
 void XBeeComsOut() {
@@ -226,14 +242,17 @@ void loop() {
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
     mission_state = 2;
     writeEEPROM_state();
+    createDataPacket();
     
   } else if (v < 0.0 && alt > 670) { // ascent -> descent state (read + trans)
     mission_state = 3;
     writeEEPROM_state();
+    createDataPacket();
 
   } else { // lauchpad state (read + trans)
     mission_state = 1;
     writeEEPROM_state();
+    createDataPacket();
     
   }
 
