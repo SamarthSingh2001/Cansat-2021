@@ -121,6 +121,7 @@ void setup() { // setup/recovery state
   mission_state = 0;
   v0 = 0.0;
   Serial.begin(9600);
+  Serial3.begin(9600); // Serial2 is the xbee, may need to change
     while(!Serial);    // time to get serial running
     Serial.println(F("BME280 test"));
 
@@ -220,22 +221,6 @@ void loop() {
   
   v = v0 + accel_val*time_in_flight; // 
 
-  // creating packet... //TODO need to put this in the packet function above
-  packetCount++;
-  String telemetryPacket = "3226,";
-  telemetryPacket.concat(String(mission_time));
-  telemetryPacket.concat(",");
-  telemetryPacket.concat(String(packetCount));
-  telemetryPacket.concat(",");
-  telemetryPacket.concat("S1"); // this will be different for payload 2
-  telemetryPacket.concat(",");
-  telemetryPacket.concat(String(bme.readAltitude(SEALEVELPRESSURE_HPA)));
-  telemetryPacket.concat(",");
-  telemetryPacket.concat(String(bme.readTemperature()));
-  // convert gyro z axis to RPM from radian/s, double check math
-  telemetryPacket.concat(String(gyro.gyro.z * 60 / (2*3.14159)));
-  
-  // TODO: save packet to onboard sd card
 
 
   // state switch statement 
