@@ -47,7 +47,7 @@ int count = 0;
 int packetCount = 0;
 
 void writeEEPROM_state() {
-  EEPROM.update(mission_state, address);
+  EEPROM.update(address, mission_state);
   /*
   address = address + 1;
   if(address == EEPROM.length()) {
@@ -58,16 +58,16 @@ void writeEEPROM_state() {
 
 void writeEEPROM_time() {
   if(mission_time < 255) {
-    EEPROM.update(mission_time/100, address); // writes seconds value
+    EEPROM.update(address, mission_time/100); // writes seconds value
   } else {
     count++;
-    EEPROM.update(mission_time/100, address + count); // writes seconds value
+    EEPROM.update(address + count, mission_time/100); // writes seconds value
   }
    
 }
 
 void writeEEPROM_pkt() {
-  EEPROM.update(packetCount, 1);
+  EEPROM.update(1, packetCount);
 }
 
 void readEEPROM_pkt() {
@@ -79,7 +79,7 @@ void readEEPROM_state() {
 }
 
 void readEEPROM_time() {
-  mission_time = EEPROM.read(1 + count);
+  mission_time = EEPROM.read(2 + count);
 }
 
 // creates and send telemetry packet to container over Serial.

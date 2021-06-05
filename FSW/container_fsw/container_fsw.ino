@@ -1,4 +1,4 @@
-#include <Adafruit_GPS.h>
+ #include <Adafruit_GPS.h>
 #include <XBee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
 // TODO: double check the library is usable/compatible with XBee pro 900HP 
 
@@ -61,13 +61,12 @@ long BaudRate = 57600 , sysTick = 0;
 char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
-XBee xbeePayload = XBee();
-XBee xbeeGS = XBee();
+XBee xbeePayload = XBee(); // the XBee that talks to the payloads
+// the XBee that talks to GS doesn't need to be in API mode
 
 // FIXME: i think these should be SH/SL, not 0 or 1 or 4
 #define XBEE_SP1_DEST_ADDR  0x0000 // 0
 #define XBEE_SP2_DEST_ADDR  0x0001 // 1
-#define XBEE_GS_DEST_ADDR   0x0100 // 4
 
 void XBeeCommsOut() {
   
@@ -75,6 +74,15 @@ void XBeeCommsOut() {
 
 void XBeeCommsIn() {
   
+}
+
+void handleDataPacket(){
+  
+}
+
+// TODO: parameter should maybe be char[]
+void relayPayloadPacket(String pkt){
+  Serial3.print(pkt);
 }
 
 
@@ -88,6 +96,8 @@ void setup() {
   // also spit it out
   Serial.begin(115200);
   Serial.println("Adafruit GPS library basic parsing test!");
+
+  Serial3.begin(9600); // Serial3 is for GCS XBee
 
   // 9600 NMEA is the default baud rate for Adafruit MTK GPS's- some use 4800
   GPS.begin(9600);
