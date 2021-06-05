@@ -1,4 +1,4 @@
-tu#include <Wire.h>
+#include <Wire.h>
 #include <EEPROM.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
@@ -67,7 +67,7 @@ void writeEEPROM_time() {
 }
 
 void writeEEPROM_pkt() {
-  EEPROM.update(packetCount);
+  EEPROM.update(packetCount, 1);
 }
 
 void readEEPROM_pkt() {
@@ -78,11 +78,13 @@ void readEEPROM_state() {
   mission_state = EEPROM.read(0);
 }
 
-void writeEEPROM_time() {
+void readEEPROM_time() {
   mission_time = EEPROM.read(1 + count);
 }
 
-void createDataPacket() {
+// creates and send telemetry packet to container over Serial.
+// also saves it to SD card
+void createDataPacket(sensors_event_t gyro) {
   // creating packet...
   packetCount++;
   String telemetryPacket = "3226,";
@@ -97,9 +99,13 @@ void createDataPacket() {
   telemetryPacket.concat(String(bme.readTemperature()));
   // convert gyro z axis to RPM from radian/s, double check math
   telemetryPacket.concat(String(gyro.gyro.z * 60 / (2*3.14159)));
-  telemetyrPacket.concat("\n"); // newline will be the delimiter for packet
+  telemetryPacket.concat("\n"); // newline will be the delimiter for packet
   
   // TODO: save packet to onboard sd card
+
+  // send packet to container over Serial3 if it is available
+  if(Serial3)
+    Serial3.print(telemetryPacket);
 }
 
 void XBeeComsOut() {
@@ -239,17 +245,17 @@ void loop() {
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
     mission_state = 2;
     writeEEPROM_state();
-    createDataPacket();
+    createDataPacket(gyro);
     
   } else if (v < 0.0 && alt > 670) { // ascent -> descent state (read + trans)
     mission_state = 3;
     writeEEPROM_state();
-    createDataPacket();
+    createDataPacket(gyro);
 
   } else { // lauchpad state (read + trans)
     mission_state = 1;
     writeEEPROM_state();
-    createDataPacket();
+    createDataPacket(gyro);
     
   }
 
