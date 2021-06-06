@@ -20,6 +20,7 @@ import serial
 
 # placeholder xbee object
 # note: VERY subject to change
+# TODO: update port to /dev/ttyUSB0
 device = XBeeDevice("COM1", 9600)
 
 # initialize the Xbee radio
