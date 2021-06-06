@@ -59,14 +59,14 @@ const int BUZZERpin = 16;
 // Connect pinRx to the Pin2 of XBee(Tx , Dout)
 // Connect pinTx to the Pin3 of XBee(Rx , Din)
 
-// Define the pins on Arduino for XBee comminication
-uint8_t pinRx = 2 , pinTx = 4; // the pin on Arduino
+// Define the pins on Teensy for XBee comminication
+uint8_t pinRx = 2 , pinTx = 4; // the pin on Teensy
 long BaudRate = 57600 , sysTick = 0;
 char GotChar;
 // Initialize NewSoftSerial
 //NewSoftSerial mySerial( pinRx , pinTx );
 XBee xbeePayload = XBee(); // the XBee that talks to the payloads
-// the XBee that talks to GS doesn't need to be in API mode
+// TODO: make a object for xbee that talks to GCS
 
 // FIXME: i think these should be SH/SL, not 0 or 1 or 4
 #define XBEE_SP1_DEST_ADDR  0x0000 // 0
@@ -227,6 +227,8 @@ void loop() {
   pres_data = bme.readPressure();
   alt_data = bme.readAltitude(SEALEVELPRESSURE_HPA);
   hum_data = bme.readHumidity();
+
+  // TODO: add code to handle simulation mode here, maybe like a switch statement
 
   if(v > 5.0) { // launchpad -> ascent (read/transmit to GCS)
     
