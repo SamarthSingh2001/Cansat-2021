@@ -4,6 +4,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
+#include "Sensors.h"
+
 #define BME_SCK 13
 #define BME_MISO 12
 #define BME_MOSI 11
@@ -135,6 +137,7 @@ void setup() { // setup/recovery state
   
   mission_state = 0;
   v0 = 0.0;
+  alt = 0.0;
   Serial.begin(9600);
   Serial3.begin(9600); // Serial2 is the xbee, may need to change
     while(!Serial);    // time to get serial running
@@ -225,9 +228,9 @@ void loop() {
   Serial.print(bme.readTemperature());
   Serial.println(" °C");
 
-
+  alt = bme.readAltitude(SEALEVELPRESSURE_HPA));
   Serial.print("Approx. Altitude = ");
-  Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  Serial.print(alt);
   Serial.println(" m");
 
   Serial.print("Humidity = ");
