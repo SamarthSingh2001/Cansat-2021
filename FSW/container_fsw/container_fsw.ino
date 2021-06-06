@@ -1,7 +1,7 @@
  #include <Adafruit_GPS.h>
 #include <XBee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
 // TODO: double check the library is usable/compatible with XBee pro 900HP 
-
+#include "Radio.h"
 // what's the name of the hardware serial port?
 #define GPSSerial Serial
 
@@ -128,6 +128,7 @@ void relayPayloadPacket(String pkt){
 
 
 void setup() {
+  Radio::setup();
   pinMode(LEDpin, OUTPUT);
   pinMode(BUZZERpin, OUTPUT);
   // put your setup code here, to run once:
@@ -200,6 +201,7 @@ void setup() {
 }
 
 void loop() {
+  Radio::loop();
   // put your main code here, to run repeatedly:
 
   xbeePayload.readPacket();
