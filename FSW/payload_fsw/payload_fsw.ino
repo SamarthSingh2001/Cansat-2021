@@ -127,7 +127,8 @@ void setup() { // setup/recovery state
   if (!sox.begin_I2C()) {
     // if (!sox.begin_SPI(LSM_CS)) {
     // if (!sox.begin_SPI(LSM_CS, LSM_SCK, LSM_MISO, LSM_MOSI)) {
-    // Serial.println("Failed to find LSM6DSOX chip");
+    //Serial.println("Failed to find LSM6DSOX chip");
+    Serial.println("issue with sox");
     while (1) {
       delay(10);
     }
