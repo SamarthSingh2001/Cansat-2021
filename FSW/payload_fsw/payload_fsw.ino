@@ -73,11 +73,12 @@ void createDataPacket(sensors_event_t gyro) {
 }
 
 
-void readVoltage() {
+float readVoltage() {
   int volt_val = analogRead(0); // place holder pin number
   float vout = (volt_val * 5.0) / 1024.0;
   float vin = vout / (100000.0 / (1000000.0 + 100000.0));
   voltage_reading = vin;
+  return voltage_reading;
 }
 
 void setup() { // setup/recovery state
