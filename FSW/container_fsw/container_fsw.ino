@@ -2,6 +2,7 @@
 #include <XBee.h> // for xbee library stuff, https://www.arduino.cc/reference/en/libraries/xbee-arduino-library/
 // TODO: double check the library is usable/compatible with XBee pro 900HP 
 #include "Radio.h"
+#include "EEPROMManager.h"
 // what's the name of the hardware serial port?
 #define GPSSerial Serial
 
@@ -46,10 +47,7 @@ float time_in_flight;
 float v;
 float accel_val;
 float alt;
-unsigned int long mission_time;
-int packetCount = 0;
-int address = 2;
-int count = 0;
+
 
 const int LEDpin = 15;
 const int BUZZERpin = 16;
@@ -72,50 +70,6 @@ XBee xbeePayload = XBee(); // the XBee that talks to the payloads
 #define XBEE_SP1_DEST_ADDR  0x0000 // 0
 #define XBEE_SP2_DEST_ADDR  0x0001 // 1
 
-void writeEEPROM_state() {
-  EEPROM.update(address, mission_state);
-  /*
-  address = address + 1;
-  if(address == EEPROM.length()) {
-    address = 0;
-  }
-  */
-}
-
-void writeEEPROM_time() {
-  if(mission_time < 255) {
-    EEPROM.update(address, mission_time/100); // writes seconds value
-  } else {
-    count++;
-    EEPROM.update(address + count, mission_time/100); // writes seconds value
-  }
-   
-}
-
-void writeEEPROM_pkt() {
-  EEPROM.update(1, packetCount);
-}
-
-void readEEPROM_pkt() {
-  packetCount = EEPROM.read(1);
-}
-
-void readEEPROM_state() {
-  mission_state = EEPROM.read(0);
-}
-
-void readEEPROM_time() {
-  mission_time = EEPROM.read(2 + count);
-}
-
-
-void XBeeCommsOut() {
-  
-}
-
-void XBeeCommsIn() {
-  
-}
 
 void handleDataPacket(){
   
@@ -129,6 +83,7 @@ void relayPayloadPacket(String pkt){
 
 void setup() {
   Radio::setup();
+  EEPROM::setup();
   pinMode(LEDpin, OUTPUT);
   pinMode(BUZZERpin, OUTPUT);
   // put your setup code here, to run once:
@@ -235,15 +190,15 @@ void loop() {
   if(v > 5.0) { // launchpad -> ascent (read/transmit to GCS)
       Serial.println("IN THE ASCENT STATE");
       mission_state = 2;
-      writeEEPROM_state();
+      EEPROM::writeEEPROM_state();
   } else if(v < 0.0 && alt >= 670) { // ascent -> descent (read/transmit to GCS)
       Serial.println("IN THE DESCENT STATE");
       mission_state = 3;
-      writeEEPROM_state();
+      EEPROM::writeEEPROM_state();
   } else if(alt = 0.0 && v == 0.0) { // descent -> landed (collect telem from SP, read and transmit, release of payloads)
     Serial.println("IN THE LANDED STATE");
     mission_state = 4;
-    writeEEPROM_state();
+    EEPROM::writeEEPROM_state();
     if(alt == 500) { // release SP1
      
     } else if (alt == 400) { // release SP2
@@ -255,7 +210,7 @@ void loop() {
   } else { // launchpad (read/transmit to GCS)
      Serial.println("IN THE LAUNCHPAD STATE");
      mission_state = 5;
-     writeEEPROM_state;
+     EEPROM::writeEEPROM_state();
   }
   
 }

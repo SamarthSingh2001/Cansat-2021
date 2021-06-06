@@ -18,7 +18,7 @@ import packet_history
 device = XBeeDevice("/dev/ttyUSB0", 9600)
 
 # this address could change
-container64Addr = "13A200415CCC25"
+container64Addr = "13A200418C7122"
 
 
 remote = RemoteXBeeDevice(device, XBee64BitAddress.from_hex_string(container64Addr))

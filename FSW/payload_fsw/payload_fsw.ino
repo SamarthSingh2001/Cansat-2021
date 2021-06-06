@@ -1,5 +1,4 @@
 #include <Wire.h>
-#include <EEPROM.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
@@ -71,14 +70,6 @@ void createDataPacket(sensors_event_t gyro) {
   // send packet to container over Serial3 if it is available
   if(Serial3)
     Serial3.print(telemetryPacket);
-}
-
-void XBeeComsOut() {
-  
-}
-
-void XBeeComsIn() {
-  
 }
 
 
@@ -155,7 +146,7 @@ void setup() { // setup/recovery state
 void loop() {
   // put your main code here, to run repeatedly:
   mission_time = millis(); // getting the mission time in millieconds
-  EEPROM::writeEEPROM_time(mission_time);
+  EEPROM::writeEEPROM_time();
   readVoltage();
   sensors_event_t accel;
   sensors_event_t gyro;
@@ -207,7 +198,7 @@ void loop() {
 
   
   // TODO: save packet to onboard sd card
-  EEPROM::writeEEPROM_pkt(packetCount);
+  EEPROM::writeEEPROM_pkt();
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
