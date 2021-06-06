@@ -51,6 +51,9 @@ layout.addLayout(status_widget,0)
 window.setLayout(layout)
 window.show()
 
+# initialize xbee
+xbee.initialize()
+
 # update function
 def update():
 

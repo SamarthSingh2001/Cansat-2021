@@ -4,24 +4,24 @@
 
 Implementation for transmitting and receiving packets to and from the Container
 """
-from digi.xbee.devices import XBeeDevice
+from digi.xbee.devices import XBeeDevice, RemoteXBeeDevice
+from digi.xbee.models.address import XBee64BitAddress
 import csv_generation as csv_gen
 import mqtt_util as mqtt
 import graphs
 import status_section as status
 import packet_history
 
-import serial
 
-#ser = serial.Serial('dev/ttyUSB0')
-#print(ser.name)
-#ser.write(b'hello')
-#ser.close()
 
-# placeholder xbee object
-# note: VERY subject to change
-# TODO: update port to /dev/ttyUSB0
-device = XBeeDevice("COM1", 9600)
+
+device = XBeeDevice("/dev/ttyUSB0", 9600)
+
+# this address could change
+container64Addr = "13A200415CCC25"
+
+
+remote = RemoteXBeeDevice(device, XBee64BitAddress.from_hex_string(container64Addr))
 
 # initialize the Xbee radio
 def initialize():
@@ -31,6 +31,7 @@ def initialize():
 
 # send a packet to the container Xbee
 def send_packet(packet):
+    device.send_data(remote, packet)
     return True
 
 # callback function when a packet from the Container is received
@@ -42,5 +43,11 @@ def on_packet_received(xbee_message):
     status.updateMissionTime(data)
     packet_history.packet_received(data)
 
-    # TODO: parse xbee_message into a List
-    #       send relevant items to relevant widgets
+
+# to be used for local test suite
+def local_packet_test(data):
+    csv_gen.append_csv_file(data)
+    mqtt.send_packet(data)
+    graphs.update_data(data)
+    status.updateMissionTime(data)
+    packet_history.packet_received(data)

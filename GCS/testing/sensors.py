@@ -5,7 +5,7 @@
 Generate random data to send to GCS
 """
 import random
-from xbee import on_packet_received
+from xbee import local_packet_test
 
 # common packet info
 TEAM_ID = 3226
@@ -91,7 +91,7 @@ def sendContainerPacket():
         GPS_TIME + "," + str(GPS_LATITUDE) + "," + str(GPS_LONGITUDE) + "," + str(GPS_ALTITUDE) + "," + str(GPS_SATS) + "," + SOFTWARE_STATE + "," + str(SP1_PACKET_COUNT) + "," + str(SP2_PACKET_COUNT) + "," +
         CMD_ECHO
     )
-    on_packet_received(telemetry)
+    local_packet_test(telemetry)
 
 def returnPayloadPacket(num):
     global PACKET_COUNT, SP1_PACKET_COUNT, SP2_PACKET_COUNT
@@ -110,7 +110,7 @@ def returnPayloadPacket(num):
         return telemetry
 
 def sendPayloadPacket1():
-    on_packet_received(returnPayloadPacket(1))
+    local_packet_test(returnPayloadPacket(1))
 
 def sendPayloadPacket2():
-    on_packet_received(returnPayloadPacket(2))
+    local_packet_test(returnPayloadPacket(2))
