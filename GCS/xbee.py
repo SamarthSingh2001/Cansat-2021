@@ -42,6 +42,7 @@ def on_packet_received(xbee_message):
     graphs.update_data(data)
     status.updateMissionTime(data)
     packet_history.packet_received(data)
+    print(data)
 
 
 # to be used for local test suite
