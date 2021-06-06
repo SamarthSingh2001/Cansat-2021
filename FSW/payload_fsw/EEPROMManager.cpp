@@ -9,7 +9,7 @@ namespace EEPROM {
     void setup(){
 
         // if all three are 255, set to zero
-        readEEPROM_pkt(packetCount);
+        readEEPROM_pkt();
         readEEPROM_state();
         readEEPROM_time();
         if(
