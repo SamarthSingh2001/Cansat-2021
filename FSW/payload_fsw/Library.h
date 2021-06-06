@@ -13,4 +13,5 @@ namespace Library{
 
 } // end namespace
 extern unsigned long mission_time;
+extern int mission_state;
 #endif

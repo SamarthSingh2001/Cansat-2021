@@ -43,48 +43,10 @@ float v;
 float accel_val;
 float alt;
 float voltage_reading;
-unsigned long mission_time;
-int mission_state;
-int address = 2;
-int count = 0;
+
 //const int led_pin 15;
 int packetCount = 0;
 
-void writeEEPROM_state() {
-  EEPROM.update(address, mission_state);
-  /*
-  address = address + 1;
-  if(address == EEPROM.length()) {
-    address = 0;
-  }
-  */
-}
-
-void writeEEPROM_time() {
-  if(mission_time < 255) {
-    EEPROM.update(address, mission_time/100); // writes seconds value
-  } else {
-    count++;
-    EEPROM.update(address + count, mission_time/100); // writes seconds value
-  }
-   
-}
-
-void writeEEPROM_pkt() {
-  EEPROM.update(1, packetCount);
-}
-
-void readEEPROM_pkt() {
-  packetCount = EEPROM.read(1);
-}
-
-void readEEPROM_state() {
-  mission_state = EEPROM.read(0);
-}
-
-void readEEPROM_time() {
-  mission_time = EEPROM.read(2 + count);
-}
 
 // creates and send telemetry packet to container over Serial.
 // also saves it to SD card
@@ -194,7 +156,7 @@ void setup() { // setup/recovery state
 void loop() {
   // put your main code here, to run repeatedly:
   mission_time = millis(); // getting the mission time in millieconds
-  writeEEPROM_time();
+  EEPROM::writeEEPROM_time(mission_time);
   readVoltage();
   sensors_event_t accel;
   sensors_event_t gyro;
@@ -246,26 +208,26 @@ void loop() {
 
   
   // TODO: save packet to onboard sd card
-  writeEEPROM_pkt();
+  EEPROM::writeEEPROM_pkt(packetCount);
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
 
     Serial.println("IN THE ASCENT STATE");
     mission_state = 2;
-    writeEEPROM_state();
+    EEPROM::writeEEPROM_state();
     createDataPacket(gyro);
     
   } else if (v < 0.0 && alt > 670) { // ascent -> descent state (read + trans)
     Serial.println("IN THE DESCENT STATE");
     mission_state = 3;
-    writeEEPROM_state();
+    EEPROM::writeEEPROM_state();
     createDataPacket(gyro);
 
   } else { // lauchpad state (read + trans)
     Serial.println("IN THE LAUNCHPAD STATE");
     mission_state = 1;
-    writeEEPROM_state();
+    EEPROM::writeEEPROM_state();
     createDataPacket(gyro);
     
   }

@@ -9,8 +9,8 @@
 namespace EEPROM{
 
     void writeEEPROM_state();
-    void writeEEPROM_time();
-    void writeEEPROM_pkt();
+    void writeEEPROM_time(unsigned long mission_time);
+    void writeEEPROM_pkt(int packetCount);
     
     void readEEPROM_pkt();
     void readEEPROM_state();
