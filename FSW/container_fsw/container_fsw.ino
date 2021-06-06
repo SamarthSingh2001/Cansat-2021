@@ -231,12 +231,19 @@ void loop() {
   // TODO: add code to handle simulation mode here, maybe like a switch statement
 
   if(v > 5.0) { // launchpad -> ascent (read/transmit to GCS)
-    
+      Serial.println("IN THE ASCENT STATE");
+      mission_state = 2;
+      writeEEPROM_state();
   } else if(v < 0.0 && alt >= 670) { // ascent -> descent (read/transmit to GCS)
-    
+      Serial.println("IN THE DESCENT STATE");
+      mission_state = 3;
+      writeEEPROM_state();
   } else if(alt = 0.0 && v == 0.0) { // descent -> landed (collect telem from SP, read and transmit, release of payloads)
+    Serial.println("IN THE LANDED STATE");
+    mission_state = 4;
+    writeEEPROM_state();
     if(alt == 500) { // release SP1
-      
+     
     } else if (alt == 400) { // release SP2
       
     } else if(alt <= 0.0) {
@@ -244,7 +251,9 @@ void loop() {
       digitalWrite(BUZZERpin, HIGH);
     }
   } else { // launchpad (read/transmit to GCS)
-    
+     Serial.println("IN THE LAUNCHPAD STATE");
+     mission_state = 5;
+     writeEEPROM_state;
   }
   
 }

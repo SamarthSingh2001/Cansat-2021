@@ -240,7 +240,9 @@ void loop() {
   Serial.println(" %");
   
   v = v0 + accel_val*time_in_flight; // 
-
+  Serial.print("Velocity = ");
+  Serial.print(v);
+  Serial.println(" m/s");
 
   
   // TODO: save packet to onboard sd card
@@ -248,16 +250,20 @@ void loop() {
 
   // state switch statement 
   if(v >= 5.00) { // launchpad -> ascent state (read + trans)
+
+    Serial.println("IN THE ASCENT STATE");
     mission_state = 2;
     writeEEPROM_state();
     createDataPacket(gyro);
     
   } else if (v < 0.0 && alt > 670) { // ascent -> descent state (read + trans)
+    Serial.println("IN THE DESCENT STATE");
     mission_state = 3;
     writeEEPROM_state();
     createDataPacket(gyro);
 
   } else { // lauchpad state (read + trans)
+    Serial.println("IN THE LAUNCHPAD STATE");
     mission_state = 1;
     writeEEPROM_state();
     createDataPacket(gyro);
