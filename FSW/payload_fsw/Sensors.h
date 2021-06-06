@@ -2,7 +2,7 @@
 #define Sensors_h
 
 namespace Sensors {
-    
-}
+
+} // end namespace
 
 #endif

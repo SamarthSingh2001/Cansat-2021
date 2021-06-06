@@ -4,6 +4,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
+#include "Library.h"
+#include "EEPROMManager.h"
 #include "Sensors.h"
 
 #define BME_SCK 13
