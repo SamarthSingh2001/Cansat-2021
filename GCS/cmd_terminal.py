@@ -6,6 +6,7 @@ This file contains the Command Terminal widget.
 """
 from  PyQt5.QtWidgets import QLabel, QPlainTextEdit, QLineEdit, QVBoxLayout
 from PyQt5.QtCore import Qt
+import xbee
 import constants
 import commands
 import simulation
@@ -69,7 +70,8 @@ def build():
             # TODO: send cmd_packet to container xbee radio
             if valid_cmd_flag:
                 error_label.setText("")
-                # send command if valid
+                cmd_packet += "\n"
+                xbee.send_packet(cmd_packet)
             else:
                 error_label.setText(error_msg)
 
