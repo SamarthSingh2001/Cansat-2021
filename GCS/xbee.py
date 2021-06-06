@@ -13,10 +13,10 @@ import packet_history
 
 import serial
 
-ser = serial.Serial('dev/ttyUSB0')
-print(ser.name)
-ser.write(b'hello')
-ser.close()
+#ser = serial.Serial('dev/ttyUSB0')
+#print(ser.name)
+#ser.write(b'hello')
+#ser.close()
 
 # placeholder xbee object
 # note: VERY subject to change
