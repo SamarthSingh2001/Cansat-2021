@@ -8,6 +8,7 @@
 #include "Library.h"
 namespace EEPROM{
 
+    void setup();
     void writeEEPROM_state();
     void writeEEPROM_time(unsigned long mission_time);
     void writeEEPROM_pkt(int packetCount);

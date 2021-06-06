@@ -45,7 +45,6 @@ float alt;
 float voltage_reading;
 
 //const int led_pin 15;
-int packetCount = 0;
 
 
 // creates and send telemetry packet to container over Serial.
@@ -98,7 +97,7 @@ void setup() { // setup/recovery state
   readEEPROM_time();
   readEEPROM_pkt();
   */
-  
+  EEPROM::setup(); // if default EEPROM values are here, set them all to 0
   mission_state = 0;
   v0 = 0.0;
   alt = 0.0;

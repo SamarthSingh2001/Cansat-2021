@@ -5,6 +5,29 @@ int address = 2;
 int count = 0;
 
 namespace EEPROM {
+
+    void setup(){
+
+        // if all three are 255, set to zero
+        readEEPROM_pkt(packetCount);
+        readEEPROM_state();
+        readEEPROM_time();
+        if(
+            mission_state == 255 &&
+            mission_time == 255 &&
+            packetCount == 255
+        ){
+            mission_state = 0;
+            mission_time = 0;
+            packetCount = 0;
+            writeEEPROM_pkt(packetCount);
+            writeEEPROM_time(mission_time);
+            writeEEPROM_state();
+        }
+        
+    }
+
+
     void writeEEPROM_state() {
         EEPROM.update(address, mission_state);
         /*
