@@ -54,3 +54,7 @@ $ python3 main.py -t
 # Leave the virtual environment
 $ deactivate
 ```
+## License
+Copyright (c) 2021 CanSat Team 3226 P.O.P.T.A.R.T.S.
+
+Licensed under the [MIT license](LICENSE)
